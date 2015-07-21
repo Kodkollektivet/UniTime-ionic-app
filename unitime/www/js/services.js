@@ -6,6 +6,17 @@ angular.module('starter.services', ['ngResource'])
       });
     })
 
+    .factory('RootData', function(){
+      var data;
+      return {
+        getData: function(){
+          return data;
+        },
+        setData: function(dataIn){
+          data = dataIn;
+        }
+      };
+    })
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 

@@ -5,7 +5,9 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope, RootData) {
       $scope.printDashScope = function(){
         console.log('i am in printDashScope');
-        console.log(Data.getData());
+        for (var i = 0 ; i < RootData.getCourses().length ; i++){
+            console.log(RootData.getCourses()[i]['name_en']);
+        }
       }
     })
 
@@ -56,7 +58,7 @@ angular.module('starter.controllers', [])
                 }
                 else{
                   $scope.selected_courses.push(response.data[i]); // Push course obj to selected list
-                  Data.setData($scope.selected_courses);
+                  RootData.setCourse($scope.selected_courses);
                   console.log(response.data[i]);
                 }
               }
@@ -70,7 +72,7 @@ angular.module('starter.controllers', [])
 
 
       $scope.printData = function(){
-          console.log(Data.getData());
+          console.log(RootData.getCourses());
       };
 
       $scope.chats = Chats.all();

@@ -7,13 +7,13 @@ angular.module('starter.services', ['ngResource'])
     })
 
     .factory('RootData', function(){
-      var data;
+      var courses = [];
       return {
-        getData: function(){
-          return data;
+        getCourses: function(){
+          return courses;
         },
-        setData: function(dataIn){
-          data = dataIn;
+        setCourse: function(dataIn){
+          courses = dataIn;
         }
       };
     })

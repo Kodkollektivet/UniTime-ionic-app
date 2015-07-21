@@ -1,4 +1,10 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['ngResource'])
+
+    .factory('Course', function($resource) {
+      return $resource('http://unitime.se/api/course/', {}, {
+        query: { method: "GET", isArray: true }
+      });
+    })
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array

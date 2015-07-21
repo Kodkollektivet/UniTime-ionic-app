@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Angular</title>
+    <script src="static/lib/js/angular.min.js"></script>
+    <script src="static/lib/js/angular-resource.js"></script>
+    <script src="static/lib/js/angular-ui-router.js"></script>
+    <script src="static/lib/js/angular-animate.min.js"></script>
+
+
+    <script src="static/app/js/app.js"></script>
+    <script src="static/app/js/controllers.js"></script>
+    <script src="static/app/js/services.js"></script>
+
+</head>
+<body ng-app="myApp">
+
+<div align="center">
+    <a ui-sref="state1">State 1</a>
+    <a ui-sref="state2">State 2</a>
+</div>
+
+<div ui-view></div>
+
+</body>
+</html>

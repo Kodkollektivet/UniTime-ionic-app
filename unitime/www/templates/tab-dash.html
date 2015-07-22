@@ -1,44 +1,24 @@
-<style>
-/* Having this on 100%, or removing scroll causes the app to either not
-     being able to scroll down or not being able to slide back from second slide.
-     Not sure about how to fix this. -->*/
-.scroll,
-.slider {
-height: 1000%;
-}
-
-.slider-slide {
-  padding-top: 0px;
-  color: #000;
-  text-align: center;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 300;
-}
-
-</style>
-
 <ion-view view-title="Add/View Courses">
   <div class="bar bar-subheader">
     <div class="row">
       <div class="col col-50" style="text-align: center;">Add Course</div>
       <div class="col col-50" style="text-align: center;">My Courses</div>
     </div>
+      <div class="list">
+          <label class="item item-input">
+              <i class="icon ion-search placeholder-icon"></i>
+              <input type="text" placeholder="Search" style="height: 3em !important; font-size: 12pt;" ng-model="filterCourses">
+          </label>
+      </div>
   </div>
-  
+
   <ion-content class="padding has-subheader">
     <!-- <button class="button button-full button-positive" ng-click="printDashScope()"> -->
     <!--   Full Width Block Button -->
     <!-- </button> -->
-    
+
     <ion-slide-box show-pager="false" does-continue="false">
-      
       <ion-slide>
-		  <div class="list" style="padding-top: 0; margin-bottom: 0; padding-bottom: 0;">
-			  <label class="item item-input">
-				  <i class="icon ion-search placeholder-icon"></i>
-				  <input type="text" placeholder="Search" style="height: 3em !important; font-size: 12pt;" ng-model="filterCourses">
-			  </label>
-		  </div>
 		  <ion-list>
 			  <!--<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">-->
 			  <ion-item class="item-icon-right" id="course-list" collection-repeat="course in all_courses | filter: filterCourses" type="item-text-wrap" ng-click="getCourseInfo(course.course_code)">
@@ -46,34 +26,10 @@ height: 1000%;
 				  <i class="icon ion-chevron-right icon-accessory"></i>
 			  </ion-item>
 		  </ion-list>
-	<ion-list ng-repeat="item in all_courses">
-	  <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in item.courses | filter: filterCourses" type="item-text-wrap">
-            <!--<img ng-src="{{chat.face}}">-->
-            <h2>{{course.name_en}}</h2>
-            <!--<p>{{chat.lastText}}</p>-->
-            <i class="icon ion-chevron-right icon-accessory"></i>
-
-            <ion-option-button class="button-assertive" ng-click="getCourse(course.course_code)">
-              Add
-            </ion-option-button>
-	  </ion-item>
-	</ion-list>
-      </ion-slide>
-
       <ion-slide style="background-color: white">
-	<style>.scroll /*{10%;}*/ </style>
 	<div class="card" style="height:105vw; margin-top:-1vw;">
-	<ion-list ng-repeat="item in data.selected">
-	  <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in item.courses" type="item-text-wrap">
-	    <!--<img ng-src="{{chat.face}}">-->
-	    <h2>{{course.name_en}}</h2>
-	    <!--<p>{{chat.lastText}}</p>-->
-	    <i class="icon ion-chevron-right icon-accessory"></i>
-	    
-	    <ion-option-button class="button-assertive" ng-click="getCourse(course.course_code)">
-	      Remove
-	    </ion-option-button>
-	  </ion-item>
+	<ion-list>
+        yolo
 	</ion-list>
 	</div>
       </ion-slide>

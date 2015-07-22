@@ -16,3 +16,17 @@
     text-align: left;
 }
 
+.bar-subheader {
+    top: 44px;
+    display: block;
+    height: 110px;
+}
+
+.has-subheader {
+    top: 141px;
+}
+
+.scroll-bar-indicator
+{
+    display: none;
+}

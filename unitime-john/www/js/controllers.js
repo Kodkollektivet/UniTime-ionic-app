@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, $state, Course, Event, RootData) {
+        $scope.selectedCourses = RootData.getSelectedCourses();
+    })
 
 .controller('ChatsCtrl', function($scope, $state, Course, Event, RootData) {
         $scope.allCourses;  // All courses
@@ -23,6 +25,10 @@ angular.module('starter.controllers', [])
 
 .controller('ChatDetailCtrl', function($scope, $state, RootData) {
         $scope.course = RootData.getCourse();
+
+        $scope.addCourseToSelectedCourses = function(course){
+            RootData.setSelectedCourses = RootData.getSelectedCourses().push(course);
+        }
 })
 
 .controller('AccountCtrl', function($scope) {

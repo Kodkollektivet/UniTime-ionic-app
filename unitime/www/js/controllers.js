@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $interval, $ionicSlideBoxDelegate, RootData, Course, SingleCourse, $state) {
 
-        var selected_courses = [];
+        $scope.selected_courses = RootData.getCourses();
         $scope.all_courses = [];
         var course;
 

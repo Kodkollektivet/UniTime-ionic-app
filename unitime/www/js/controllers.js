@@ -7,7 +7,6 @@ angular.module('starter.controllers', [])
         $scope.selected_courses = RootData.getCourses();
         $scope.all_courses = [];
         var course;
-
         /*$scope.data = {};
         $scope.data.selected = [{courses: selected_courses}];
         $scope.data.all = [{courses: all_courses}];*/
@@ -21,6 +20,10 @@ angular.module('starter.controllers', [])
             SingleCourse.get({course: course_code},function(response){
                 RootData.setSelectedCourse(response[0]);  // We are getting a list from tha API but only one abject in the list
                 console.log(RootData.getSelectedCourse());
+		
+		var index = $ionicSlideBoxDelegate.currentIndex();
+		console.log("INDEX: " + index);
+
                 $state.go('tab.dash-detail');
             });
 

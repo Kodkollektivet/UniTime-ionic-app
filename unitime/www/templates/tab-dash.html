@@ -30,7 +30,7 @@
       <ion-slide style="background-color: white">
 	<div class="card" style="height:105vw; margin-top:-1vw;">
 	  <ion-list>
-            <ion-item class="item-icon-right" id="added-course-list" collection-repeat="course in selected_courses" type="item-text-wrap">
+            <ion-item class="item-icon-right" id="added-course-list" ng-repeat="course in selected_courses" type="item-text-wrap" ng-click="getCourseInfo(course.course_code)">
 	      <h2 style="padding-top: 0.15em;">{{course[0].name_en}}</h2>
 	      <i class="icon ion-chevron-right icon-accessory"></i>
 	    </ion-item>

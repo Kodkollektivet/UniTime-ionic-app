@@ -10,10 +10,10 @@ angular.module('starter.controllers', [])
     $scope.data = {}
     $scope.data.selected = [{courses: selected_courses}];
     $scope.data.all = [{courses: all_courses}];
-
+    
     Course.query(function(response){
         for (var i = 0 ; i < response.length ; i++){
-          all_courses.push(response[i]);
+            all_courses.push(response[i]);
         }
         //$scope.courses = response.data;
       });

@@ -35,10 +35,10 @@ height: 1000%;
       <ion-slide>
 	<label class="item item-input">
 	  <i class="icon ion-search placeholder-icon"></i>
-	  <input type="search" placeholder="Search">
+	  <input type="search" ng-model="filterCourses" placeholder="Search">
 	</label>
 	<ion-list ng-repeat="item in data.all">
-	  <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in item.courses" type="item-text-wrap">
+	  <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in item.courses | filter: filterCourses" type="item-text-wrap">
             <!--<img ng-src="{{chat.face}}">-->
             <h2>{{course.name_en}}</h2>
             <!--<p>{{chat.lastText}}</p>-->

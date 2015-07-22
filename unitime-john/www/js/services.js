@@ -17,7 +17,7 @@ angular.module('starter.services', ['ngResource'])
     // RootData factory, for transporting data between scopes
     .factory('RootData', function(){
         var allCourses;
-        var selectedCourses;
+        var selectedCourses = [];
         var course;
         var events;
         return {

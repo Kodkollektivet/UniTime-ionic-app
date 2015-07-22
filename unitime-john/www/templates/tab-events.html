@@ -1,7 +1,7 @@
 <ion-view view-title="Schedule">
     <ion-content>
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="event in events | orderBy: 'start_datetime'" type="item-text-wrap" ng-click="getCourse(course.course_code)">
+            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="event in events | orderBy: 'start_datetime'" type="item-text-wrap" ng-click="eventDetail(event)">
                 <div align="center">
                     <h4>{{ event.startdate }}</h4>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>

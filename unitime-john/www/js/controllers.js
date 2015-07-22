@@ -39,12 +39,18 @@ angular.module('starter.controllers', [])
 
     .controller('EventsController', function($scope, $state, Event, RootData) {
         $scope.events = false;  // false if there are no courses added to myCorses in RootData
+        $scope.event = RootData.getEvent();  // Single event object
 
         // Get a specific course
         $scope.getEvents = function(course_code) {
             Event.get({course:course_code},function(response){
                 $scope.events = response;
             });
+        };
+
+        $scope.eventDetail = function(dataIn){
+            RootData.setEvent(dataIn);
+            $state.go('tab.event-detail');
         };
 
         $scope.init = function(){

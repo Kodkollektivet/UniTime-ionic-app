@@ -2,51 +2,17 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('DashCtrl', function($scope, $interval, $ionicSlideBoxDelegate, RootData) {
+.controller('DashCtrl', function($scope, $interval, $ionicSlideBoxDelegate, $http, RootData, Course) {
 
     var selected_courses = [];
     var all_courses = [];
-    
-    $scope.data = {};
-    $scope.data.slides = [{
-	title: "Add Course View", // Temporary
-	courses: all_courses
-    }, {
-	title: "My Courses View", // Temporary
-	courses: selected_courses
-    }];
-    
-    $scope.printDashScope = function(){
-        console.log('i am in printDashScope');
-        for (var i = 0 ; i < RootData.getCourses().length ; i++){
-            console.log(RootData.getCourses()[i]['name_en']);
-	    selected_courses.push(RootData.getCourses()[i]);
-	    
-        }
-    }
-  })
 
-.controller('ChatsCtrl', function($scope, $http, Chats, Course, RootData) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-
-
-      $scope.courses = [];
-      $scope.selected_courses = [];
-
-      Course.query(function(response){
+    Course.query(function(response){
         for (var i = 0 ; i < response.length ; i++){
-          $scope.courses.push(response[i]);
+          all_courses.push(response[i]);
         }
         //$scope.courses = response.data;
       });
-
 
       $scope.getCourse = function (course_code) {
         $http({
@@ -67,13 +33,13 @@ angular.module('starter.controllers', [])
               for ( var i = 0 ; i < response.data.length ; i++){
 
                 // If course is already added to selected_courses list
-                if(_.contains(_.map($scope.selected_courses, function(course){
+                if(_.contains(_.map(selected_courses, function(course){
                       return course.course_code;
                     }), response.data[i]['course_code'])){
                 }
                 else{
-                  $scope.selected_courses.push(response.data[i]); // Push course obj to selected list
-                  RootData.setCourse($scope.selected_courses);
+                  selected_courses.push(response.data[i]); // Push course obj to selected list
+                  RootData.setCourse(selected_courses);
                   console.log(response.data[i]);
                 }
               }
@@ -84,6 +50,36 @@ angular.module('starter.controllers', [])
               console.log(response);
             });
       };
+
+    
+    $scope.data = {};
+    $scope.data.slides = [{
+	title: "Add Course View", // Temporary
+	courses: all_courses
+    }, {
+	title: "My Courses View", // Temporary
+	courses: selected_courses
+    }];
+    
+    $scope.printDashScope = function(){
+        console.log('i am in printDashScope');
+        for (var i = 0 ; i < RootData.getCourses().length ; i++){
+            console.log(RootData.getCourses()[i]['name_en']);
+        }
+    }
+  })
+
+.controller('ChatsCtrl', function($scope, $http, Chats, Course, RootData) {
+  // With the new view caching in Ionic, Controllers are only called
+  // when they are recreated or on app start, instead of every page change.
+  // To listen for when this page is active (for example, to refresh data),
+  // listen for the $ionicView.enter event:
+  //
+  //$scope.$on('$ionicView.enter', function(e) {
+  //});
+
+
+
 
 
       $scope.printData = function(){

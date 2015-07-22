@@ -13,31 +13,35 @@
   </div>
 
   <ion-content class="padding has-subheader">
-    <!-- <button class="button button-full button-positive" ng-click="printDashScope()"> -->
-    <!--   Full Width Block Button -->
-    <!-- </button> -->
-
     <ion-slide-box show-pager="false" does-continue="false">
+
+      <!-- Slide with a list of all available courses -->
       <ion-slide>
-		  <ion-list>
-			  <!--<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">-->
-			  <ion-item class="item-icon-right" id="course-list" collection-repeat="course in all_courses | filter: filterCourses" type="item-text-wrap" ng-click="getCourseInfo(course.course_code)">
-				  <h2 style="padding-top: 0.15em;">{{course.name_en}}</h2>
-				  <i class="icon ion-chevron-right icon-accessory"></i>
-			  </ion-item>
-		  </ion-list>
-          </ion-slide>
-      <ion-slide style="background-color: white">
-	<div class="card" style="height:105vw; margin-top:-1vw;">
+	<ion-list>
+	  <ion-item class="item-icon-right" id="course-list"
+		    collection-repeat="course in all_courses | filter: filterCourses"
+		    type="item-text-wrap" ng-click="getCourseInfo(course.course_code)">
+	    
+	    <h2 style="padding-top: 0.15em;">{{course.name_en}}</h2>
+	    <i class="icon ion-chevron-right icon-accessory"></i>
+	  </ion-item>
+	</ion-list>
+      </ion-slide>
+
+      <!-- Slide with already added courses -->
+      <ion-slide>	
+	<ion-content>
 	  <ion-list>
-            <ion-item class="item-icon-right" id="added-course-list" ng-repeat="course in selected_courses" type="item-text-wrap" ng-click="getCourseInfo(course.course_code)">
-	      <h2 style="padding-top: 0.15em;">{{course[0].name_en}}</h2>
+	    <ion-item class="item-remove-animate item-avatar item-icon-right"
+		      ng-repeat="course in selected_courses | filter: filterCourses" type="item-text-wrap"
+		      ng-click="getCourseInfo(course[0].course_code)">
+	      <h2 style="padding-top: 0.35em;">{{course[0].name_en}}</h2>
 	      <i class="icon ion-chevron-right icon-accessory"></i>
 	    </ion-item>
 	  </ion-list>
-	</div>
+	</ion-content>
       </ion-slide>
-    </ion-slide-box>
-    
+      
+    </ion-slide-box>    
   </ion-content>
 </ion-view>

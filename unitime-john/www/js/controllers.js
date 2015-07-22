@@ -1,10 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $state, Course, RootData) {
-        $scope.selectedCourses = RootData.getSelectedCourses();
-    })
-
-.controller('CourseController', function($scope, $state, Course, RootData) {
+    .controller('CourseController', function($scope, $state, Course, RootData) {
         $scope.allCourses;  // All courses
         $scope.course;  // Specific course object
 
@@ -26,7 +22,7 @@ angular.module('starter.controllers', [])
                 $state.go('tab.course-detail');
             });
         }
-})
+    })
 
     .controller('DetailCourseController', function($scope, $state, RootData) {
             $scope.course = RootData.getCourse();

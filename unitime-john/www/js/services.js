@@ -27,28 +27,24 @@ angular.module('starter.services', ['ngResource'])
             getAllCourses: function(){
                 return allCourses;
             },
-
             setMyCourses: function(dataIn){
                 myCourses = dataIn;
             },
             getMyCourses: function(){
                 return myCourses;
             },
-
             setCourse: function(dataIn){
                 course = dataIn;
             },
             getCourse: function(){
                 return course
             },
-
             setEvents: function(dataIn){
                 events = dataIn;
             },
             getEvents: function(){
                 return events;
             }
-
         };
     });
 

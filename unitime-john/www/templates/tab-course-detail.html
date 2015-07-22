@@ -4,28 +4,29 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{course.course_code}}">
+<ion-view view-title="Course Info">
     <div class="verticalCenter card">
 
-            <div class="item item-text-wrap" align="center">
-                <h2>{{course.course_code}}</h2>
-                <p>{{course.name_en}}</p>
-                <p>{{course.name_sv}}</p>
-                <p>{{course.course_points}}</p>
-                <p>{{course.course_speed}}</p>
-                <p>{{course.semester}} - {{course.year}}</p>
-                <p>{{course.course_location}}</p>
-                <p>{{course.course_language}}</p>
-                <p>{{course.url}}</p>
+        <div class="item item-text-wrap" align="center">
+            <h2>{{course.course_code}}</h2>
+            <p>{{course.name_en}}</p>
+            <p>{{course.name_sv}}</p>
+            <p>{{course.course_points}}</p>
+            <p>{{course.course_speed}}</p>
+            <p>{{course.semester}} - {{course.year}}</p>
+            <p>{{course.course_location}}</p>
+            <p>{{course.course_language}}</p>
+            <p>{{course.url}}</p>
 
-                <a href="{{course.syllabus_en}}">Syllabus EN</a>
-                <a href="{{course.syllabus_sv}}">Syllabus SV</a>
-            </div>
-            <div class="item item-divider" align="center">
-                <button class="button button-dark button-block" ng-click="addCourseToSelectedCourses(course)">
-                    Add course
-                </button>
-            </div>
+            <a href="{{course.syllabus_en}}">Syllabus EN</a>
+            <a href="{{course.syllabus_sv}}">Syllabus SV</a>
+        </div>
+
+        <div class="item item-divider" align="center">
+            <button class="button button-dark button-block" ng-click="addCourseToSelectedCourses(course)">
+                Add course
+            </button>
+        </div>
 
     </div>
 </ion-view>

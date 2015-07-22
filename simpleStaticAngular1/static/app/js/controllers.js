@@ -6,9 +6,7 @@ angular.module('myApp.controllers', [])
         $scope.courses = [];
 
         Course.query(function(response){
-            for (var i = 0 ; i < response.length ; i++){
-                $scope.courses.push(response[i]);
-            }
+            $scope.courses = response;
         });
 
         $scope.event;

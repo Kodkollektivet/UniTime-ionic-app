@@ -1,1 +1,18 @@
 /* Empty. Add your own CSS if you like */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.course-input{
+    width: 100vw;
+    height: 3.5em !important;
+    text-align: left;
+    text-indent: 1vw;
+    font-size: 12pt !important;
+}
+
+#course-list{
+    text-align: left;
+}
+

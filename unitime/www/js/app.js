@@ -61,6 +61,15 @@ angular.module('starter', [
       }
     }
   })
+  .state('tab.dash-detail', {
+          url: '/dash/:course_code',
+          views: {
+              'tab-dash': {
+                  templateUrl: 'templates/dash-detail.html',
+                  controller: 'DashDetailCtrl'
+              }
+          }
+  })
 
   .state('tab.chats', {
       url: '/chats',
@@ -72,7 +81,7 @@ angular.module('starter', [
       }
     })
     .state('tab.chat-detail', {
-      url: '/chats/:chatId',
+      url: '/chats/:course_code',
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html',
@@ -92,6 +101,6 @@ angular.module('starter', [
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/chats');
 
 });

@@ -1,20 +1,17 @@
 <ion-view view-title="Courses">
 
   <ion-content>
-    <button class="button button-full button-positive" ng-click="printData()">
-      Full Width Block Button
-    </button>
+    <div class="list" style="padding-top: 0; margin-bottom: 0; padding-bottom: 0;">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" style="height: 3em !important; font-size: 12pt;" ng-model="filterCourses">
+      </label>
+    </div>
     <ion-list>
       <!--<ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">-->
-      <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="course in courses" type="item-text-wrap">
-        <!--<img ng-src="{{chat.face}}">-->
-        <h2>{{course.name_en}}</h2>
-        <!--<p>{{chat.lastText}}</p>-->
+      <ion-item class="item-icon-right" id="course-list" collection-repeat="course in courses | filter: filterCourses" type="item-text-wrap" ng-click="getCourseInfo(course.course_code)">
+        <h2 style="padding-top: 0.15em;">{{course.name_en}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
-
-        <ion-option-button class="button-assertive" ng-click="getCourse(course.course_code)">
-          Add
-        </ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

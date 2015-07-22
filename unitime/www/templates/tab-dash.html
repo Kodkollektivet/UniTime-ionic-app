@@ -1,7 +1,10 @@
 <style>
+<!-- Having this on 100%, or removing scroll causes the app to either not
+     being able to scroll down or not being able to slide back from second slide.
+     Not sure about how to fix this. -->
 .scroll,
 .slider {
-  height: 100%;
+height: 1000%;
 }
 
 .slider-slide {
@@ -24,18 +27,17 @@
   </div>
   
   <ion-content class="padding has-subheader">
-    <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type="search" placeholder="Search">
-    </label>
-    <button class="button button-full button-positive" ng-click="printDashScope()">
-      Full Width Block Button
-    </button>
+    <!-- <button class="button button-full button-positive" ng-click="printDashScope()"> -->
+    <!--   Full Width Block Button -->
+    <!-- </button> -->
     
     <ion-slide-box does-continue="false">
-      <ion-slide ng-repeat="item in data.slides">
-	<h2>{{item.title}}</h2>
-	<ion-list>
+      <ion-slide>
+	<label class="item item-input">
+	  <i class="icon ion-search placeholder-icon"></i>
+	  <input type="search" placeholder="Search">
+	</label>
+	<ion-list ng-repeat="item in data.all">
 	  <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in item.courses" type="item-text-wrap">
             <!--<img ng-src="{{chat.face}}">-->
             <h2>{{course.name_en}}</h2>
@@ -46,8 +48,24 @@
               Add
             </ion-option-button>
 	  </ion-item>
+	</ion-list>
       </ion-slide>
+
+      <ion-slide>
+	<ion-list ng-repeat="item in data.selected">
+	  <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in item.courses" type="item-text-wrap">
+            <!--<img ng-src="{{chat.face}}">-->
+            <h2>{{course.name_en}}</h2>
+            <!--<p>{{chat.lastText}}</p>-->
+            <i class="icon ion-chevron-right icon-accessory"></i>
+
+            <ion-option-button class="button-assertive" ng-click="getCourse(course.course_code)">
+              Remove
+            </ion-option-button>
+	  </ion-item>
+	</ion-list>	
       </ion-slide>
+      
     </ion-slide-box>
     
   </ion-content>

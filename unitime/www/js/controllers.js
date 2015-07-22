@@ -7,6 +7,10 @@ angular.module('starter.controllers', [])
     var selected_courses = [];
     var all_courses = [];
 
+    $scope.data = {}
+    $scope.data.selected = [{courses: selected_courses}];
+    $scope.data.all = [{courses: all_courses}];
+
     Course.query(function(response){
         for (var i = 0 ; i < response.length ; i++){
           all_courses.push(response[i]);
@@ -52,14 +56,6 @@ angular.module('starter.controllers', [])
       };
 
     
-    $scope.data = {};
-    $scope.data.slides = [{
-	title: "Add Course View", // Temporary
-	courses: all_courses
-    }, {
-	title: "My Courses View", // Temporary
-	courses: selected_courses
-    }];
     
     $scope.printDashScope = function(){
         console.log('i am in printDashScope');

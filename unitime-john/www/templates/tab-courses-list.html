@@ -1,7 +1,13 @@
 <ion-view view-title="Course list">
     <ion-content>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Search" ng-model="filterCourses">
+            </label>
+        </div>
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in allCourses" type="item-text-wrap" ng-click="getCourse(course.course_code)">
+            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="course in allCourses | filter : filterCourses" type="item-text-wrap" ng-click="getCourse(course.course_code)">
                 <!--<img ng-src="{{chat.face}}">-->
                 <h2>{{course.course_code}}</h2>
                 <p>{{course.name_en}}</p>

@@ -9,9 +9,14 @@ angular.module('starter.controllers', [])
         $scope.course;  // Specific course object
 
         // This gets all the courses
-        Course.query(function(response){
-            $scope.allCourses = response;
-        });
+        var getAllCourses = function(){
+            Course.query(function(response){
+                $scope.allCourses = response;
+                RootData.setAllCourses(response);
+            });
+        };
+
+        getAllCourses();
 
         // Get a specific course
         $scope.getCourse = function(course_code) {

@@ -1,17 +1,24 @@
 <ion-view view-title="My Courses List">
     <ion-content>
-        <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="course in myCourses" type="item-text-wrap" ng-click="getCourse(course.course_code)">
-                <!--<img ng-src="{{chat.face}}">-->
-                <h2>{{course.course_code}}</h2>
-                <p>{{course.name_en}}</p>
-                <p>{{course.name_sv}}</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
 
-                <ion-option-button class="button-assertive" ng-click="remove(chat)">
-                    Delete
-                </ion-option-button>
-            </ion-item>
-        </ion-list>
+            <div ng-repeat="course in myCourses" ng-click="getCourse(course.course_code)">
+                <div class="card">
+                    <div class="item item-text-wrap" align="center">
+                        <h2>{{course.course_code}}</h2>
+                        <p>{{course.name_en}}</p>
+                        <p>{{course.name_sv}}</p>
+                        <p>{{course.course_points}}</p>
+                        <p>{{course.course_speed}}</p>
+                        <p>{{course.semester}} - {{course.year}}</p>
+                        <p>{{course.course_location}}</p>
+                        <p>{{course.course_language}}</p>
+                        <p>{{course.url}}</p>
+
+                        <a href="{{course.syllabus_en}}">Syllabus EN</a>
+                        <a href="{{course.syllabus_sv}}">Syllabus SV</a>
+                    </div>
+                </div>
+            </div>
+
     </ion-content>
 </ion-view>

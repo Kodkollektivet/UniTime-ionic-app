@@ -20,7 +20,7 @@ angular.module('starter.services', ['ngResource'])
           return courses;
         },
         setCourses: function(dataIn){
-          courses = dataIn;
+          courses.push(dataIn);
         },
         getSelectedCourse: function(){
           return selectedCourse;

@@ -2,14 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a03134f9-8544-4933-b0ac-45e3e28dcf03" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../unitime/www/templates/dash-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/js/app.js" afterPath="$PROJECT_DIR$/../unitime/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/templates/chat-detail.html" afterPath="$PROJECT_DIR$/../unitime/www/templates/chat-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/js/controllers.js" afterPath="$PROJECT_DIR$/../unitime/www/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/js/services.js" afterPath="$PROJECT_DIR$/../unitime/www/js/services.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/css/style.css" afterPath="$PROJECT_DIR$/../unitime/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/templates/tab-chats.html" afterPath="$PROJECT_DIR$/../unitime/www/templates/tab-chats.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../unitime/www/templates/tab-dash.html" afterPath="$PROJECT_DIR$/../unitime/www/templates/tab-dash.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../simpleStaticAngular1/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../simpleStaticAngular1/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -1060,7 +1052,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="110" y="25" width="1397" height="835" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17060933" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />

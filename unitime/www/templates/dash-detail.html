@@ -42,8 +42,15 @@
     </ul>
    </div>
    </div>
+      <div ng-if="index == 0">
    <button class="button button-full button-balanced" ng-click="getCourse(course_info.course_code)">
         Add
    </button>
+      </div>
+      <div ng-if="index == 1">
+          <button class="button button-full button-assertive" ng-click="deleteCourse(course_info.course_code)">
+              Delete
+          </button>
+      </div>
   </ion-content>
 </ion-view>

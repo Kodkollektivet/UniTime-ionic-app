@@ -15,6 +15,7 @@ angular.module('starter.services', ['ngResource'])
     .factory('RootData', function(){
       var courses = [];
       var selectedCourse;
+      var slideIndex;
       return {
         getCourses: function(){
           return courses;
@@ -27,6 +28,15 @@ angular.module('starter.services', ['ngResource'])
         },
         setSelectedCourse: function(course){
           selectedCourse = course;
+        },
+        setSlideIndex: function (index) {
+          slideIndex = index;
+        },
+        getSlideIndex: function () {
+          return slideIndex;
+        },
+        deleteCourses: function (course) {
+            courses.pop(course);
         }
       };
     })

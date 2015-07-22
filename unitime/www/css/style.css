@@ -31,6 +31,18 @@
     display: none;
 }
 
+.courseScroll{
+    margin-top: 8em;
+}
+
+.li {
+    width: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-lines: 1;
+
+}
+
 .scroll,
 .slider {
 height: 1000%;

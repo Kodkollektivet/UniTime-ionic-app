@@ -6,14 +6,27 @@ angular.module('starter.services', ['ngResource'])
       });
     })
 
+    .factory('SingleCourse', function($resource){
+      return $resource('http://unitime.se/api/course/:course', {}, {
+        'get': {method: 'GET', isArray: true}
+      });
+    })
+
     .factory('RootData', function(){
       var courses = [];
+      var selectedCourse;
       return {
         getCourses: function(){
           return courses;
         },
-        setCourse: function(dataIn){
+        setCourses: function(dataIn){
           courses = dataIn;
+        },
+        getSelectedCourse: function(){
+          return selectedCourse;
+        },
+        setSelectedCourse: function(course){
+          selectedCourse = course;
         }
       };
     })

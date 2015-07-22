@@ -2,14 +2,29 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('DashCtrl', function($scope, RootData) {
-      $scope.printDashScope = function(){
+.controller('DashCtrl', function($scope, $interval, $ionicSlideBoxDelegate, RootData) {
+
+    var selected_courses = [];
+    var all_courses = [];
+    
+    $scope.data = {};
+    $scope.data.slides = [{
+	title: "Add Course View", // Temporary
+	courses: all_courses
+    }, {
+	title: "My Courses View", // Temporary
+	courses: selected_courses
+    }];
+    
+    $scope.printDashScope = function(){
         console.log('i am in printDashScope');
         for (var i = 0 ; i < RootData.getCourses().length ; i++){
             console.log(RootData.getCourses()[i]['name_en']);
+	    selected_courses.push(RootData.getCourses()[i]);
+	    
         }
-      }
-    })
+    }
+  })
 
 .controller('ChatsCtrl', function($scope, $http, Chats, Course, RootData) {
   // With the new view caching in Ionic, Controllers are only called

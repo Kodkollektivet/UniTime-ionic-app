@@ -9,10 +9,6 @@ angular.module('myApp',
 )
     .config(function($interpolateProvider, $httpProvider, $resourceProvider, $stateProvider, $urlRouterProvider){
 
-    // CSRF Support
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-
     // This only works in angular 3!
     // It makes dealing with Django slashes at the end of everything easier.
     $resourceProvider.defaults.stripTrailingSlashes = false;
@@ -34,9 +30,8 @@ angular.module('myApp',
         .state('state1.list', {
             url: "/list",
             templateUrl: "templates/state1.list.html",
-            controller: function($scope) {
-                $scope.items = ["A", "List", "Of", "Items"];
-            }
+            controller: 'EventController'
+
         })
         .state('state2', {
             url: "/state2",
@@ -45,6 +40,11 @@ angular.module('myApp',
         .state('state2.list', {
             url: "/list",
             controller: 'CourseController',
-            templateUrl: "templates/state2.list.html",
+            templateUrl: "templates/state2.list.html"
+        })
+        .state('state2.detail', {
+            url: "/detail",
+            controller: 'CourseController',
+            templateUrl: "templates/state2.detail.html"
         });
     });

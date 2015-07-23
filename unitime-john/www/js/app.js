@@ -7,6 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('unitime', [
     'ionic',
+    'ui.calendar',
     'unitime.controllers',
     'unitime.services',
     'unitime.factorys'
@@ -103,9 +104,29 @@ angular.module('unitime', [
                   controller: 'EventsController'
               }
           }
+      })
+
+      .state('tab.calendar', {
+          url: '/calendar',
+          views: {
+              'tab-calendar': {
+                  templateUrl: 'templates/tab-calendar.html',
+                  controller: 'CalendarCtrl'
+              }
+          }
+      })
+
+      .state('tab.info', {
+          url: '/info',
+          views: {
+              'tab-info': {
+                  templateUrl: 'templates/tab-info.html'
+                  //controller: 'EventsController'
+              }
+          }
       });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/courses');
+  $urlRouterProvider.otherwise('/tab/events');
 
 });

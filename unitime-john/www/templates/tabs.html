@@ -5,14 +5,24 @@ navigation history that also transitions its views in and out.
 -->
 <ion-tabs class="tabs-stable">
 
-  <!-- Dashboard Tab -->
-  <ion-tab title="Courses" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/courses">
+  <!-- Course Tab -->
+  <ion-tab title="Courses" icon-off="ion-ios-albums" icon-on="ion-ios-albums" href="#/tab/courses">
     <ion-nav-view name="tab-courses"></ion-nav-view>
   </ion-tab>
 
-  <!-- Chats Tab -->
-  <ion-tab title="Lectures" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" href="#/tab/events">
+  <!-- Events Tab -->
+  <ion-tab title="Lectures" icon-off="ion-navicon-round" icon-on="ion-navicon-round" href="#/tab/events">
     <ion-nav-view name="tab-events"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Calendar Tab -->
+  <ion-tab title="Lectures" icon-off="ion-calendar" icon-on="ion-calendar" href="#/tab/calendar">
+    <ion-nav-view name="tab-calendar"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Info Tab -->
+  <ion-tab title="Lectures" icon-off="ion-information-circled" icon-on="ion-information-circled" href="#/tab/info">
+    <ion-nav-view name="tab-info"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>

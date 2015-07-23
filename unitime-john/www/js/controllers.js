@@ -59,7 +59,7 @@ angular.module('unitime.controllers', [])
     .controller('EventsController', function($scope, $state, Event, RootData) {
         $scope.events = [];
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
-
+        $scope.myCourses = RootData.getMyCourses();
 
         // Get events for a specific course
         var getEventsFromAPI = function() {
@@ -77,9 +77,12 @@ angular.module('unitime.controllers', [])
                         // Iterate over response and add events to events list
                         angular.forEach(response, function(event){
                             var date = event['startdate'].split('-');
-                            var time = event['starttime'].split(':');
-                            var start_datetime = new Date(date[0], date[1], date[2], time[0], time[1]);
+                            var starttime = event['starttime'].split(':');
+                            var endtime = event['endtime'].split(':');
+                            var start_datetime = new Date(date[0], date[1], date[2], starttime[0], starttime[1]);
+                            var end_datetime = new Date(date[0], date[1], date[2], endtime[0], endtime[1]);
                             event['start_datetime'] = start_datetime;
+                            event['end_datetime'] = end_datetime;
 
                             // Add event to list
                             $scope.events.push(event);
@@ -100,5 +103,8 @@ angular.module('unitime.controllers', [])
             $scope.$apply()
         };
 
+
+    })
+    .controller('CalendarCtrl', function($scope, $compile, $timeout, uiCalendarConfig) {
 
     });

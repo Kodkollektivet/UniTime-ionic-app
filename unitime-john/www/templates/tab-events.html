@@ -3,7 +3,26 @@
         <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
         </ion-refresher>
 
-        <ion-list>
+
+                <div class="card" ng-show="myCourses.length == 0">
+                    <div ng-show="myCourses.length > 0 && events.length == 0" class="item item-text-wrap" align="center">
+                        You have no lecture in your courses!
+                    </div>
+                    <div ng-show="myCourses.length == 0 && events.length == 0" class="item item-text-wrap" align="center">
+                        <h1>Welcome to UniTime!</h1>
+                        <p>The perfect app for you to keep track of your schedule!</p>
+                        <p>Press the "Add course" button!</p>
+                    </div>
+
+                    <button ui-sref="tab.courses" class="button button-block button-large button-dark">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        Handle courses
+                        <i class="icon ion-folder placeholder-icon"></i>
+                    </button>
+
+                </div>
+
+        <ion-list ng-hide="myCourses.length == 0">
             <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" type="item-text-wrap" ng-click="eventDetail(event)">
                 <div align="center">
                     <h4>{{ event.startdate }}</h4>

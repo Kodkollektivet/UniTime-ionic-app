@@ -1,6 +1,12 @@
 <ion-view view-title="My Courses">
     <ion-content>
 
+        <div ng-show="myCourses.length == 0" class="card">
+            <div class="item" align="center">
+                You have no courses!
+            </div>
+        </div>
+
             <div ng-repeat="course in myCourses" ng-click="getCourse(course.course_code)">
                 <div class="card">
                     <div class="item item-text-wrap" align="center">
@@ -17,12 +23,15 @@
                         <a href="{{course.syllabus_en}}">Syllabus EN</a>
                         <a href="{{course.syllabus_sv}}">Syllabus SV</a>
                     </div>
-                </div>
-                <div class="item item-divider" align="center">
                     <button class="button button-dark button-block" ng-click="removeFromMyCourses(course)">
+
+                        <i class="icon ion-trash-a placeholder-icon"></i>
                         Remove course
                     </button>
                 </div>
+
+
+
             </div>
 
     </ion-content>

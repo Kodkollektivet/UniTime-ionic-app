@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('unitime.controllers', [])
 
     .controller('CourseController', function($scope, $state, Course, RootData) {
         $scope.allCourses;  // All courses
@@ -24,28 +24,69 @@ angular.module('starter.controllers', [])
         }
     })
 
+    // Detailed course view, and add course to my courses
     .controller('DetailCourseController', function($scope, $state, RootData) {
-            $scope.course = RootData.getCourse();
+        // Course detailed object
+        $scope.course = RootData.getCourse();
 
-            $scope.addCourseToSelectedCourses = function(course){
+        // Function to add course to my list
+        $scope.addCourseToSelectedCourses = function(course){
+            // If my list already contains the course object, dont add it.
+            if (!_.contains(RootData.getMyCourses(), course)){
+
+                // Add course to my course list in RootData
                 RootData.setMyCourses = RootData.getMyCourses().push(course);
+
             }
+            else {
+                // Do something if course already added.
+                console.log("Course already added to your list");
+            }
+
+        }
     })
 
     .controller('MyCoursesController', function($scope, $state, RootData) {
         $scope.myCourses = RootData.getMyCourses();
 
+        $scope.removeFromMyCourses = function(courseIn){
+            $scope.myCourses.splice($scope.myCourses.indexOf(courseIn), 1);
+            RootData.setMyCourses = $scope.myCourses;
+        }
+
     })
 
     .controller('EventsController', function($scope, $state, Event, RootData) {
-        $scope.events = false;  // false if there are no courses added to myCorses in RootData
-        $scope.event = RootData.getEvent();  // Single event object
+        $scope.events = [];
+        $scope.event = RootData.getEvent();  // Single event object, used for event detail view
 
-        // Get a specific course
-        $scope.getEvents = function(course_code) {
-            Event.get({course:course_code},function(response){
-                $scope.events = response;
-            });
+
+        // Get events for a specific course
+        var getEventsFromAPI = function() {
+            $scope.events = [];  // Empty list
+
+            // If there is any courses saved to myCourses in RootData
+            if (RootData.getMyCourses().length > 0){
+
+                // Iterate over my course list and get events from API
+                angular.forEach(RootData.getMyCourses(), function(course){
+
+                    // Send get request to API, reponse will be a list of event objects
+                    Event.get({course:course['course_code']},function(response){
+
+                        // Iterate over response and add events to events list
+                        angular.forEach(response, function(event){
+                            var date = event['startdate'].split('-');
+                            var time = event['starttime'].split(':');
+                            var start_datetime = new Date(date[0], date[1], date[2], time[0], time[1]);
+                            event['start_datetime'] = start_datetime;
+
+                            // Add event to list
+                            $scope.events.push(event);
+                        });
+                    });
+                });
+            }
         };
 
         $scope.eventDetail = function(dataIn){
@@ -53,18 +94,11 @@ angular.module('starter.controllers', [])
             $state.go('tab.event-detail');
         };
 
-        $scope.init = function(){
-            console.log('i am in events now');
-            console.log(RootData.getMyCourses().length);
-            $scope.getEvents('1BD105');
-            // If there is any courses saved to myCourses in RootData
-            if (RootData.getMyCourses().length > 0 && $scope.events.length == 0){
-                $scope.events = [];
-                angular.forEach(RootData.getMyCourses(), function(course){
-                    console.log(course['course_code']);
-                    //$scope.getCourse(course['1BD105']);
-                })
-            }
+        $scope.doRefresh = function() {
+            getEventsFromAPI();
+            $scope.$broadcast('scroll.refreshComplete');
+            $scope.$apply()
         };
-        $scope.init();
+
+
     });

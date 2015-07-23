@@ -1,57 +1,39 @@
-angular.module('starter.services', ['ngResource'])
+'use strict';
+// Services
 
-    // Factory for getting course and courses
-    .factory('Course', function($resource){
-        return $resource('http://unitime.se/api/course/:course', {}, {
-            'get': {method: 'GET', isArray: true}
-        });
-    })
-
-    // Factory for getting events
-    .factory('Event', function($resource){
-        return $resource('http://unitime.se/api/event/:course', {}, {
-            'get': {method:'GET', isArray: true}
-        })
-    })
-
-    // RootData factory, for transporting data between scopes
-    .factory('RootData', function(){
-        var allCourses;  // All courses list
-        var myCourses = [];  // My selected courses
-        var course;  // Single course object
-        var events;  // Events list
-        var event;  // Single event object
+// NOT USED AT THE MOMENT
+angular.module('unitime.services', ['ngResource'])
+    .service('EventService', function(RootData, Event, $q){
         return {
-            setAllCourses: function(dataIn){
-                allCourses = dataIn;
-            },
-            getAllCourses: function(){
-                return allCourses;
-            },
-            setMyCourses: function(dataIn){
-                myCourses = dataIn;
-            },
-            getMyCourses: function(){
-                return myCourses;
-            },
-            setCourse: function(dataIn){
-                course = dataIn;
-            },
-            getCourse: function(){
-                return course
-            },
-            setEvents: function(dataIn){
-                events = dataIn;
-            },
             getEvents: function(){
-                return events;
-            },
-            setEvent: function(dataIn){
-                event = dataIn;
-            },
-            getEvent: function(){
-                return event;
+
+                var dfd = $q.defer()
+                var events = [];
+                console.log('in EventService');
+                console.log(RootData.getMyCourses().length);
+                if (RootData.getMyCourses().length > 0){
+                    angular.forEach(RootData.getMyCourses(), function(course){
+                        console.log(course['course_code']);
+                        Event.get({course:course['course_code']},function(response){
+
+                            angular.forEach(response, function(event){
+                                events.push(event);
+                                console.log(event);
+                            });
+                        });
+                    });
+
+                    dfd.resolve(events);
+                    return dfd.promise;
+                }
+
+                else {
+
+                    return dfd.promise;
+                    return events;
+                }
             }
-        };
+        }
     });
+
 

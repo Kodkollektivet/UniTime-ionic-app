@@ -1,9 +1,13 @@
 <ion-view view-title="Schedule">
     <ion-content>
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+        </ion-refresher>
+
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="event in events | orderBy: 'start_datetime'" type="item-text-wrap" ng-click="eventDetail(event)">
+            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" type="item-text-wrap" ng-click="eventDetail(event)">
                 <div align="center">
                     <h4>{{ event.startdate }}</h4>
+                    <p>{{ event.name_en }}</p>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>
                     <p>{{ event.room }}</p>
                 </div>

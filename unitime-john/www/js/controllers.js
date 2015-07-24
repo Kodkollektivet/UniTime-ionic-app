@@ -28,21 +28,29 @@ angular.module('unitime.controllers', [])
     .controller('DetailCourseController', function($scope, $state, RootData) {
         // Course detailed object
         $scope.course = RootData.getCourse();
+        $scope.myCourses = RootData.getMyCourses();
 
-        // Function to add course to my list
-        $scope.addCourseToSelectedCourses = function(course){
-            // If my list already contains the course object, dont add it.
-            if (!_.contains(RootData.getMyCourses(), course)){
-
-                // Add course to my course list in RootData
-                RootData.setMyCourses = RootData.getMyCourses().push(course);
+        $scope.thisCourseInMyCourses = function(){
+            if(_.contains(_.map($scope.myCourses, function(course){
+                    return course.course_code;
+                }), $scope.course['course_code'])){
+                return true;
 
             }
             else {
-                // Do something if course already added.
-                console.log("Course already added to your list");
+                return false;
             }
+        };
 
+
+        // Function to add course to my list
+        $scope.addCourseToSelectedCourses = function(course){
+
+            if(!_.contains(_.map($scope.myCourses, function(course){
+                    return course.course_code;
+                }), $scope.course['course_code'])){
+                RootData.setMyCourses = RootData.getMyCourses().push(course);
+            }
         }
     })
 
@@ -60,6 +68,9 @@ angular.module('unitime.controllers', [])
         $scope.events = [];
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
+        $scope.dateToday = new Date().setHours(0,0,0,0);
+        var date_today_1 = new Date();
+        $scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
         // Get events for a specific course
         var getEventsFromAPI = function() {
@@ -77,10 +88,13 @@ angular.module('unitime.controllers', [])
                         // Iterate over response and add events to events list
                         angular.forEach(response, function(event){
                             var date = event['startdate'].split('-');
+
                             var starttime = event['starttime'].split(':');
                             var endtime = event['endtime'].split(':');
-                            var start_datetime = new Date(date[0], date[1], date[2], starttime[0], starttime[1]);
-                            var end_datetime = new Date(date[0], date[1], date[2], endtime[0], endtime[1]);
+                            var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
+                            var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
+                            var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
+                            event['date'] = start_date;
                             event['start_datetime'] = start_datetime;
                             event['end_datetime'] = end_datetime;
 

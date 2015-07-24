@@ -25,6 +25,9 @@
         <ion-list ng-hide="myCourses.length == 0">
             <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" type="item-text-wrap" ng-click="eventDetail(event)">
                 <div align="center">
+                    <h4 ng-show="event.date == dateToday">Today</h4>
+                    <h4 ng-show="event.date == dateTomorrow">Tomorrow</h4>
+
                     <h4>{{ event.startdate }}</h4>
                     <p>{{ event.name_en }}</p>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>

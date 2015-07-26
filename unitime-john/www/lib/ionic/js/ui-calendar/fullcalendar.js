@@ -6,7 +6,7 @@
 
 (function(factory) {
 	if (typeof define === 'function' && define.amd) {
-		define([ 'jquery', 'moment' ], factory);
+		define([ '../jquery.min', 'moment' ], factory);
 	}
 	else if (typeof exports === 'object') { // Node/CommonJS
 		module.exports = factory(require('jquery'), require('moment'));

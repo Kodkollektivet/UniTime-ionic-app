@@ -16,11 +16,11 @@ angular.module('unitime.factorys', ['ngResource'])
     })
 
     // RootData factory, for transporting data between scopes
-    .factory('RootData', function($localstorage){
+    .factory('RootData', function($localstorage, Event){
         var allCourses = [];  // All courses list
-        var myCourses = [];
+        var myCourses = [];  //My courses list
         var course;  // Single course object
-        var events;  // Events list
+        var events = [];  // Events list
         var event;  // Single event object
         return {
             setAllCourses: function(dataIn){
@@ -41,6 +41,15 @@ angular.module('unitime.factorys', ['ngResource'])
                     return $localstorage.getObject('myCourses');
                 }
             },
+            removeFromMyCourses: function(dataIn){
+                myCourses.splice(myCourses.indexOf(dataIn), 1);
+                $localstorage.setObject('myCourses', myCourses);
+                angular.forEach(events, function (event) {
+                    if (event.course_code == dataIn.course_code) {
+                        events.splice(events.indexOf(event), 1);
+                    }
+                })
+            },
             setCourse: function(dataIn){
                 course = dataIn;
             },
@@ -51,6 +60,31 @@ angular.module('unitime.factorys', ['ngResource'])
                 events = dataIn;
             },
             getEvents: function(){
+                //return events;
+                events = [];
+                angular.forEach(this.getMyCourses(), function(course){
+
+                    // Send get request to API, reponse will be a list of event objects
+                    Event.get({course:course['course_code']},function(response){
+
+                        // Iterate over response and add events to events list
+                        angular.forEach(response, function(event){
+                            var date = event['startdate'].split('-');
+
+                            var starttime = event['starttime'].split(':');
+                            var endtime = event['endtime'].split(':');
+                            var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
+                            var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
+                            var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
+                            event['date'] = start_date;
+                            event['start_datetime'] = start_datetime;
+                            event['end_datetime'] = end_datetime;
+
+                            // Add event to list
+                            events.push(event);
+                        });
+                    });
+                });
                 return events;
             },
             setEvent: function(dataIn){

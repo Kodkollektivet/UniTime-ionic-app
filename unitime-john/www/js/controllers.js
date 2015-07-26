@@ -24,7 +24,7 @@ angular.module('unitime.controllers', [])
         $scope.myCourses = RootData.getMyCourses();
 
         $scope.thisCourseInMyCourses = function(){
-            if(_.contains(_.map($scope.myCourses, function(course){
+            if(_.contains(_.map(RootData.getMyCourses(), function(course){
                     return course.course_code;
                 }), $scope.course['course_code'])){
                 return true;
@@ -39,7 +39,7 @@ angular.module('unitime.controllers', [])
         // Function to add course to my list
         $scope.addCourseToSelectedCourses = function(course){
 
-            if(!_.contains(_.map($scope.myCourses, function(course){
+            if(!_.contains(_.map(RootData.getMyCourses(), function(course){
                     return course.course_code;
                 }), $scope.course['course_code'])){
                 RootData.setMyCourses(course);

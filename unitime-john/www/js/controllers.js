@@ -22,27 +22,15 @@ angular.module('unitime.controllers', [])
         // Course detailed object
         $scope.course = RootData.getCourse();
         $scope.myCourses = RootData.getMyCourses();
-
-        $scope.thisCourseInMyCourses = function(){
-            if(_.contains(_.map($scope.myCourses, function(course){
-                    return course.course_code;
-                }), $scope.course['course_code'])){
-                return true;
-
-            }
-            else {
-                return false;
-            }
-        };
+        $scope.thisCourseInMyCourses = RootData.courseInMyCourses(RootData.getCourse());
 
 
         // Function to add course to my list
         $scope.addCourseToSelectedCourses = function(course){
 
-            if(!_.contains(_.map($scope.myCourses, function(course){
-                    return course.course_code;
-                }), $scope.course['course_code'])){
-                RootData.setMyCourses(course);
+            if(RootData.addToMyCourses(course)){
+                $scope.myCourses = RootData.getMyCourses();
+                $scope.thisCourseInMyCourses = true;
                 $rootScope.$broadcast('myCoursesUpdated');
             }
         }
@@ -52,10 +40,10 @@ angular.module('unitime.controllers', [])
         $scope.myCourses = RootData.getMyCourses();
 
         $scope.removeFromMyCourses = function(courseIn){
-            $scope.myCourses.splice($scope.myCourses.indexOf(courseIn), 1);
-            RootData.setMyCourses = $scope.myCourses;
+            if(RootData.removeFromMyCourses(courseIn)){
+                $scope.myCourses = RootData.getMyCourses();
+            }
         }
-
     })
 
     .controller('EventsController', function($scope, $state, Event, RootData) {

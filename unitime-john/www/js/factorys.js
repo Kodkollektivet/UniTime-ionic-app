@@ -29,16 +29,59 @@ angular.module('unitime.factorys', ['ngResource'])
             getAllCourses: function(){
                 return allCourses;
             },
-            setMyCourses: function(dataIn){
-                myCourses.push(dataIn);
-                $localstorage.setObject('myCourses', myCourses);
+
+            addToMyCourses: function(courseIn){
+
+                if (!_.contains(_.map(myCourses, function(course){
+                        return course.course_code;
+                    }), courseIn.course_code)){
+
+                    myCourses.push(courseIn);
+                    console.log('Course added to my courses');
+                    return true;
+                }
+                else {
+                    console.log('Course NOT added, already in myCourses list');
+                    return false;
+                }
+
+
+                //$localstorage.setObject('myCourses', myCourses);
             },
+
+            removeFromMyCourses: function(courseIn){
+                if (_.contains(_.map(myCourses, function(course){
+                        return course.course_code;
+                    }), courseIn.course_code)){
+
+                    myCourses.splice(myCourses.indexOf(courseIn), 1);
+                    console.log('Course removed from my courses');
+                    return true;
+                }
+                else {
+                    console.log('Course not removed');
+                    return false;
+                }
+            },
+
+            courseInMyCourses: function(courseIn){
+                if (_.contains(_.map(myCourses, function(course){
+                        return course.course_code;
+                    }), courseIn.course_code)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            },
+
             getMyCourses: function(){
                 if ($localstorage.getObject('myCourses') == null) {
                     return [];  // My selected courses
                 }
                 else {
-                    return $localstorage.getObject('myCourses');
+                    return myCourses;
+                    //return $localstorage.getObject('myCourses');
                 }
             },
             setCourse: function(dataIn){

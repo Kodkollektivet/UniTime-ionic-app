@@ -18,7 +18,7 @@ angular.module('unitime.controllers', [])
     })
 
     // Detailed course view, and add course to my courses
-    .controller('DetailCourseController', function($scope, $state, RootData) {
+    .controller('DetailCourseController', function($rootScope, $localstorage, $scope, $state, RootData) {
         // Course detailed object
         $scope.course = RootData.getCourse();
         $scope.myCourses = RootData.getMyCourses();
@@ -42,7 +42,8 @@ angular.module('unitime.controllers', [])
             if(!_.contains(_.map($scope.myCourses, function(course){
                     return course.course_code;
                 }), $scope.course['course_code'])){
-                RootData.setMyCourses = RootData.getMyCourses().push(course);
+                RootData.setMyCourses(course);
+                $rootScope.$broadcast('myCoursesUpdated');
             }
         }
     })
@@ -110,7 +111,9 @@ angular.module('unitime.controllers', [])
             $scope.$apply()
         };
 
-
+        $scope.$on('myCoursesUpdated', function(event, args) {
+             getEventsFromAPI();
+        });
     })
     .controller('CalendarCtrl', function($scope, $compile, $timeout) {
 

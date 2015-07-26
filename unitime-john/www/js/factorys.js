@@ -16,9 +16,9 @@ angular.module('unitime.factorys', ['ngResource'])
     })
 
     // RootData factory, for transporting data between scopes
-    .factory('RootData', function(){
+    .factory('RootData', function($localstorage){
         var allCourses = [];  // All courses list
-        var myCourses = [];  // My selected courses
+        var myCourses = [];
         var course;  // Single course object
         var events;  // Events list
         var event;  // Single event object
@@ -30,10 +30,16 @@ angular.module('unitime.factorys', ['ngResource'])
                 return allCourses;
             },
             setMyCourses: function(dataIn){
-                myCourses = dataIn;
+                myCourses.push(dataIn);
+                $localstorage.setObject('myCourses', myCourses);
             },
             getMyCourses: function(){
-                return myCourses;
+                if ($localstorage.getObject('myCourses') == null) {
+                    return [];  // My selected courses
+                }
+                else {
+                    return $localstorage.getObject('myCourses');
+                }
             },
             setCourse: function(dataIn){
                 course = dataIn;
@@ -54,5 +60,23 @@ angular.module('unitime.factorys', ['ngResource'])
                 return event;
             }
         };
-    });
+    })
+
+    //Local Storage factory, used instead of database to persist data between uses
+    .factory('$localstorage', ['$window', function($window) {
+        return {
+            set: function(key, value) {
+                $window.localStorage[key] = value;
+            },
+            get: function(key, defaultValue) {
+                return $window.localStorage[key] || defaultValue;
+            },
+            setObject: function(key, value) {
+                $window.localStorage[key] = JSON.stringify(value);
+            },
+            getObject: function(key) {
+                return JSON.parse($window.localStorage[key] || '{}');
+            }
+        }
+    }]);
 

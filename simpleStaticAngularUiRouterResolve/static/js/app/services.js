@@ -1,18 +1,23 @@
 
 angular.module('services', ['ngResource'])
 
-    .service('CourseService', function($q){
+    .service('CourseService', function(Course, RootData){
         return {
-            getItem: function() {
-                var dfd = $q.defer();
+            getItem: function(){
 
-                setTimeout(function() {
-                    dfd.resolve({
-                        name: 'Mittens Cat'
-                    })
-                }, 1000);
-                console.log('In ItemServices');
-                return dfd.promise;
+                console.log(RootData.getAllCourses().length);
+
+                if (RootData.getAllCourses().length == 0){
+
+                    response = Course.query().$promise;
+                    RootData.setAllCourses(response);
+                    return response;
+
+                }
+                else {
+                    console.log('Root data lenght is NOT 0');
+                    return RootData.getAllCourses();
+                }
             }
         }
     })

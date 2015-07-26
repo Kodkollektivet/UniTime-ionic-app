@@ -19,9 +19,8 @@ angular.module('myApp', [
                 url: "/state1",
                 templateUrl: "templates/state1.html",
                 resolve: {
-                    item: function(Course) {
-                        var courseData = Course.query();
-                        return courseData.$promise;
+                    item: function(CourseService) {
+                        return CourseService.getItem();
                     }
                 },
                 controller: 'EventController'

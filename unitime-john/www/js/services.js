@@ -1,39 +1,24 @@
-'use strict';
+//'use strict';
 // Services
 
 // NOT USED AT THE MOMENT
 angular.module('unitime.services', ['ngResource'])
-    .service('EventService', function(RootData, Event, $q){
+
+    .service('CourseService', function(Course, RootData){
         return {
-            getEvents: function(){
+            getItem: function(){
 
-                var dfd = $q.defer()
-                var events = [];
-                console.log('in EventService');
-                console.log(RootData.getMyCourses().length);
-                if (RootData.getMyCourses().length > 0){
-                    angular.forEach(RootData.getMyCourses(), function(course){
-                        console.log(course['course_code']);
-                        Event.get({course:course['course_code']},function(response){
+                if (RootData.getAllCourses().length == 0){
 
-                            angular.forEach(response, function(event){
-                                events.push(event);
-                                console.log(event);
-                            });
-                        });
-                    });
+                    response = Course.query().$promise;
+                    RootData.setAllCourses(response);
+                    return response;
 
-                    dfd.resolve(events);
-                    return dfd.promise;
                 }
-
                 else {
-
-                    return dfd.promise;
-                    return events;
+                    return RootData.getAllCourses();
                 }
             }
         }
     });
-
 

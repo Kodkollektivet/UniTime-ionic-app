@@ -7,7 +7,6 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('unitime', [
     'ionic',
-    'ui.calendar',
     'unitime.controllers',
     'unitime.services',
     'unitime.factorys'
@@ -63,6 +62,11 @@ angular.module('unitime', [
               'tab-courses': {
                   templateUrl: 'templates/tab-courses-list.html',
                   controller: 'CourseController'
+              }
+          },
+          resolve: {
+              item: function(CourseService) {
+                  return CourseService.getItem();
               }
           }
       })

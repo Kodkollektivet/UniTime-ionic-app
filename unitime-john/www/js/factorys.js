@@ -17,7 +17,7 @@ angular.module('unitime.factorys', ['ngResource'])
 
     // RootData factory, for transporting data between scopes
     .factory('RootData', function(){
-        var allCourses;  // All courses list
+        var allCourses = [];  // All courses list
         var myCourses = [];  // My selected courses
         var course;  // Single course object
         var events;  // Events list

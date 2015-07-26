@@ -1,18 +1,11 @@
 angular.module('unitime.controllers', [])
 
-    .controller('CourseController', function($scope, $state, Course, RootData) {
-        $scope.allCourses;  // All courses
+    .controller('CourseController', function($scope, $state, Course, RootData, item) {
+        $scope.allCourses = item;  // All courses
         $scope.course;  // Specific course object
 
         // This gets all the courses
-        var getAllCourses = function(){
-            Course.query(function(response){
-                $scope.allCourses = response;
-                RootData.setAllCourses(response);
-            });
-        };
 
-        getAllCourses();
 
         // Get a specific course
         $scope.getCourse = function(course_code) {
@@ -119,6 +112,6 @@ angular.module('unitime.controllers', [])
 
 
     })
-    .controller('CalendarCtrl', function($scope, $compile, $timeout, uiCalendarConfig) {
+    .controller('CalendarCtrl', function($scope, $compile, $timeout) {
 
     });

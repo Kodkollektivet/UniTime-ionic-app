@@ -22,32 +22,44 @@ angular.module('unitime.controllers', [])
         // Course detailed object
         $scope.course = RootData.getCourse();
         $scope.myCourses = RootData.getMyCourses();
-        $scope.thisCourseInMyCourses = RootData.courseInMyCourses(RootData.getCourse());
+
+        $scope.thisCourseInMyCourses = function(){
+            if(_.contains(_.map(RootData.getMyCourses(), function(course){
+                    return course.course_code;
+                }), $scope.course['course_code'])){
+                return true;
+
+            }
+            else {
+                return false;
+            }
+        };
 
 
         // Function to add course to my list
         $scope.addCourseToSelectedCourses = function(course){
 
-            if(RootData.addToMyCourses(course)){
-                $scope.myCourses = RootData.getMyCourses();
-                $scope.thisCourseInMyCourses = true;
+            if(!_.contains(_.map(RootData.getMyCourses(), function(course){
+                    return course.course_code;
+                }), $scope.course['course_code'])){
+                RootData.setMyCourses(course);
                 $rootScope.$broadcast('myCoursesUpdated');
             }
         }
     })
 
-    .controller('MyCoursesController', function($scope, $state, RootData) {
+    .controller('MyCoursesController', function($scope, $rootScope, $state, RootData) {
         $scope.myCourses = RootData.getMyCourses();
 
         $scope.removeFromMyCourses = function(courseIn){
-            if(RootData.removeFromMyCourses(courseIn)){
-                $scope.myCourses = RootData.getMyCourses();
-            }
+            RootData.removeFromMyCourses(courseIn);
+            $rootScope.$broadcast('myCoursesUpdated');
         }
+
     })
 
     .controller('EventsController', function($scope, $state, Event, RootData) {
-        $scope.events = [];
+        $scope.events = RootData.getEvents();
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
         $scope.dateToday = new Date().setHours(0,0,0,0);
@@ -55,38 +67,38 @@ angular.module('unitime.controllers', [])
         $scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
         // Get events for a specific course
-        var getEventsFromAPI = function() {
-            $scope.events = [];  // Empty list
-
-            // If there is any courses saved to myCourses in RootData
-            if (RootData.getMyCourses().length > 0){
-
-                // Iterate over my course list and get events from API
-                angular.forEach(RootData.getMyCourses(), function(course){
-
-                    // Send get request to API, reponse will be a list of event objects
-                    Event.get({course:course['course_code']},function(response){
-
-                        // Iterate over response and add events to events list
-                        angular.forEach(response, function(event){
-                            var date = event['startdate'].split('-');
-
-                            var starttime = event['starttime'].split(':');
-                            var endtime = event['endtime'].split(':');
-                            var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
-                            var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
-                            var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
-                            event['date'] = start_date;
-                            event['start_datetime'] = start_datetime;
-                            event['end_datetime'] = end_datetime;
-
-                            // Add event to list
-                            $scope.events.push(event);
-                        });
-                    });
-                });
-            }
-        };
+        //var getEventsFromAPI = function() {
+        //    $scope.events = [];  // Empty list
+        //
+        //    // If there is any courses saved to myCourses in RootData
+        //    if (RootData.getMyCourses().length > 0){
+        //
+        //        // Iterate over my course list and get events from API
+        //        angular.forEach(RootData.getMyCourses(), function(course){
+        //
+        //            // Send get request to API, reponse will be a list of event objects
+        //            Event.get({course:course['course_code']},function(response){
+        //
+        //                // Iterate over response and add events to events list
+        //                angular.forEach(response, function(event){
+        //                    var date = event['startdate'].split('-');
+        //
+        //                    var starttime = event['starttime'].split(':');
+        //                    var endtime = event['endtime'].split(':');
+        //                    var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
+        //                    var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
+        //                    var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
+        //                    event['date'] = start_date;
+        //                    event['start_datetime'] = start_datetime;
+        //                    event['end_datetime'] = end_datetime;
+        //
+        //                    // Add event to list
+        //                    $scope.events.push(event);
+        //                });
+        //            });
+        //        });
+        //    }
+        //};
 
         $scope.eventDetail = function(dataIn){
             RootData.setEvent(dataIn);
@@ -94,13 +106,14 @@ angular.module('unitime.controllers', [])
         };
 
         $scope.doRefresh = function() {
-            getEventsFromAPI();
+            //getEventsFromAPI();
+            $scope.events = RootData.getEvents();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$apply()
         };
 
         $scope.$on('myCoursesUpdated', function(event, args) {
-             getEventsFromAPI();
+            $scope.events = RootData.getEvents();
         });
     })
     .controller('CalendarCtrl', function($scope, $compile, $timeout) {

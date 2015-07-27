@@ -8,8 +8,8 @@
         </div>
 
             <div collection-repeat="course in myCourses" ng-click="getCourse(course.course_code)">
-                <div class="card">
-                    <div class="item item-text-wrap" align="center">
+                <div class="card" align="center">
+                    <div class="item">
                         <h2>{{course.course_code}}</h2>
                         <p>{{course.name_en}}</p>
                         <p>{{course.name_sv}}</p>
@@ -18,11 +18,16 @@
                         <p>{{course.semester}} - {{course.year}}</p>
                         <p>{{course.course_location}}</p>
                         <p>{{course.course_language}}</p>
-                        <p>{{course.url}}</p>
-
-                        <a href="{{course.syllabus_en}}">Syllabus EN</a>
-                        <a href="{{course.syllabus_sv}}">Syllabus SV</a>
                     </div>
+                    <a class="item" ng-click="openUrl(course)">
+                        Link to course.
+                    </a>
+                    <a class="item" ng-click="openSyllabusEN(course)">
+                        Syllabus English.
+                    </a>
+                    <a class="item" ng-click="openSyllabusSV(course)">
+                        Syllabus Swedish.
+                    </a>
                     <button class="button button-dark button-block" ng-click="removeFromMyCourses(course)">
 
                         <i class="icon ion-trash-a placeholder-icon"></i>

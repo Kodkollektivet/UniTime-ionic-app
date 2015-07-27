@@ -80,9 +80,21 @@ angular.module('unitime.controllers', [])
                 $rootScope.$broadcast('myCoursesUpdated');
             }
         }
+
+        $scope.openUrl = function(courseIn){
+            window.open(courseIn.url, '_system', 'location=yes');
+        }
+
+        $scope.openSyllabusEN = function(courseIn){
+            window.open(courseIn.syllabus_en, '_system', 'location=yes');
+        }
+
+        $scope.openSyllabusSV = function(courseIn){
+            window.open(courseIn.syllabus_sv, '_system', 'location=yes');
+        }
     })
 
-    .controller('EventsController', function($scope, $state, RootData) {
+    .controller('EventsController', function($scope, $state, RootData, $ionicPopup) {
         $scope.events = RootData.getEvents();
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
@@ -106,6 +118,30 @@ angular.module('unitime.controllers', [])
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.events = RootData.getEvents();
         });
+
+        // Show today alert popup
+        $scope.showTodayPopup = function() {
+            var alertPopup = $ionicPopup.alert({
+                //title: 'Today!',
+                template: '<div align="center"><h3>Today!</h3></div>',
+                buttons: [
+                    { text: 'Ok' }
+                ]
+            });
+
+        };
+
+        // Show today alert popup
+        $scope.showTomorrowPopup = function() {
+            var alertPopup = $ionicPopup.alert({
+                //title: 'Today!',
+                template: '<div align="center"><h2>Tomorrow!</h2></div>',
+                buttons: [
+                    { text: 'Ok' }
+                ]
+            });
+
+        };
     })
     .controller('CalendarCtrl', function($scope, $compile, $timeout) {
 

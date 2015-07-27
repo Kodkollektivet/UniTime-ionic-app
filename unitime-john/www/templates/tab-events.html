@@ -22,19 +22,27 @@
                 </div>
 
         <ion-list ng-hide="myCourses.length == 0">
-            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" item-height="130" item-width="100%" type="item-text-wrap" ng-click="eventDetail(event)">
-                <div align="center">
-                    <h4 ng-show="event.date == dateToday">Today</h4>
-                    <h4 ng-show="event.date == dateTomorrow">Tomorrow</h4>
+            <ion-item class="item-avatar item-icon-left" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" item-height="130" item-width="100%" type="item-text-wrap">
+                <div>
+                    <i ng-show="event.date == dateToday" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
+                    <i ng-show="event.date == dateTomorrow" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
+                </div>
 
-                    <i ng-show="event.date == dateToday" class="icon ion-flag"></i>
+                <div align="center" ng-click="eventDetail(event)">
 
-                    <i ng-show="event.date == dateTomorrow" class="icon ion-flag"></i>
-                    <h4>{{ event.startdate }}</h4>
+                    <p><b>{{ event.startdate }}</b></p>
                     <p>{{ event.name_en }}</p>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>
-                    <p>{{ event.room }}</p>
+                    <div ng-if="event.room.length > 1">
+                        <p>{{ event.room }}</p>
+                    </div>
+                    <div ng-if="event.room.length <= 0">
+                        <p>No room available</p>
+                    </div>
+                    <p>{{ event.info }}</p>
                 </div>
+
+                <span ng-show="event.info == 'Tentamen' || event.info == 'Redovisning' || event.info == 'Examination'" class="badge badge-assertive">!</span>
             </ion-item>
         </ion-list>
     </ion-content>

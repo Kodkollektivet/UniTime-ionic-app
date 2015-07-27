@@ -31,38 +31,37 @@ angular.module('unitime.factorys', ['ngResource'])
             },
 
             addToMyCourses: function(courseIn){
-                myCourses = this.getMyCourses();
+                /*
+                 If myCourse list dont contain the courseIn object.
+                 Add it to the list, save in localstorage and return true
+                 else return false.
+                 */
+
+                // If myCourse not containing a object with same value, add to list
                 if (!_.contains(_.map(myCourses, function(course){
                         return course.course_code;
                     }), courseIn.course_code)){
 
-                    myCourses.push(courseIn);
+                    myCourses.push(courseIn);  // Save it to the list
                     $localstorage.setObject('myCourses', myCourses);
-                    console.log('Course added to my courses');
                     return true;
                 }
                 else {
-                    console.log('Course NOT added, already in myCourses list');
                     return false;
                 }
-
-
-                //$localstorage.setObject('myCourses', myCourses);
             },
 
             removeFromMyCourses: function(courseIn){
-                myCourses = this.getMyCourses();
                 if (_.contains(_.map(myCourses, function(course){
                         return course.course_code;
                     }), courseIn.course_code)){
 
                     myCourses.splice(myCourses.indexOf(courseIn), 1);
                     $localstorage.setObject('myCourses', myCourses);
-                    console.log('Course removed from my courses');
+
                     return true;
                 }
                 else {
-                    console.log('Course not removed');
                     return false;
                 }
             },
@@ -79,12 +78,12 @@ angular.module('unitime.factorys', ['ngResource'])
             },
 
             getMyCourses: function(){
-                if ($localstorage.getObject('myCourses') == null) {
-                    return [];  // My selected courses
+                if ($localstorage.getObject('myCourses' == null)) {
+                    return myCourses;  // Returns a empty list
                 }
                 else {
-                    return $localstorage.getObject('myCourses');
-                    //return $localstorage.getObject('myCourses');
+                    myCourses = $localstorage.getObject('myCourses');
+                    return myCourses;
                 }
             },
             setCourse: function(dataIn){

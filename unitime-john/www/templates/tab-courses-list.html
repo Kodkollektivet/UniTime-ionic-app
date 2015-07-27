@@ -7,12 +7,14 @@
 
     <ion-content>
         <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" collection-repeat="course in allCourses |filter : filterCourses" type="item-text-wrap" ng-click="getCourse(course.course_code)">
-                <!--<img ng-src="{{chat.face}}">-->
+            <ion-item class="item item-icon-right" collection-repeat="course in allCourses |filter : filterCourses" type="item-text-wrap" ng-click="getCourse(course.course_code)">
+
+                <i ng-show="isThisCourseInMyCourses(course)" class="icon ion-checkmark-round"></i>
                 <h2>{{course.course_code}}</h2>
                 <p>{{course.name_en}}</p>
                 <p>{{course.name_sv}}</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
+
+
             </ion-item>
         </ion-list>
     </ion-content>

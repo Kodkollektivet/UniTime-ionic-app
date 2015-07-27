@@ -15,7 +15,7 @@ angular.module('unitime.controllers', [])
                 RootData.setCourse($scope.course);  // Add course to RootData
                 $state.go('tab.course-detail');
             });
-        }
+        };
 
 
 
@@ -40,37 +40,26 @@ angular.module('unitime.controllers', [])
             }, 1000);
         };
 
+        $scope.isThisCourseInMyCourses = function(courseIn){
+            return RootData.courseInMyCourses(courseIn);
+        };
+
     })
 
     // Detailed course view, and add course to my courses
-    .controller('DetailCourseController', function($rootScope, $localstorage, $scope, $state, RootData) {
+    .controller('DetailCourseController', function($rootScope, $scope, $state, RootData) {
         // Course detailed object
         $scope.course = RootData.getCourse();
         $scope.myCourses = RootData.getMyCourses();
-
-        //$scope.thisCourseInMyCourses = function(){
-        //    if(_.contains(_.map(RootData.getMyCourses(), function(course){
-        //            return course.course_code;
-        //        }), $scope.course['course_code'])){
-        //        return true;
-        //
-        //    }
-        //    else {
-        //        return false;
-        //    }
-        //};
         $scope.alreadyAdded = RootData.courseInMyCourses(RootData.getCourse());
 
 
         // Function to add course to my list
         $scope.addCourseToSelectedCourses = function(course){
 
-            if(!_.contains(_.map(RootData.getMyCourses(), function(course){
-                    return course.course_code;
-                }), $scope.course['course_code'])){
-                RootData.addToMyCourses(course);
+            if(RootData.addToMyCourses(course)){
                 $rootScope.$broadcast('myCoursesUpdated');
-                $scope.alreadyAdded = RootData.courseInMyCourses(RootData.getCourse());
+                $scope.alreadyAdded = true;
             }
         }
     })

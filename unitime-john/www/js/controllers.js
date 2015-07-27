@@ -5,9 +5,6 @@ angular.module('unitime.controllers', [])
         $scope.course;  // Specific course object
         var filterBarInstance;
 
-        // This gets all the courses
-
-
         // Get a specific course
         $scope.getCourse = function(course_code) {
             Course.get({course:course_code},function(response){
@@ -68,9 +65,10 @@ angular.module('unitime.controllers', [])
         $scope.myCourses = RootData.getMyCourses();
 
         $scope.removeFromMyCourses = function(courseIn){
-            RootData.removeFromMyCourses(courseIn);
-            $rootScope.$broadcast('myCoursesUpdated');
-            $scope.myCourses = RootData.getMyCourses();
+            if(RootData.removeFromMyCourses(courseIn)){
+                $scope.myCourses = RootData.getMyCourses();
+                $rootScope.$broadcast('myCoursesUpdated');
+            }
         }
 
     })

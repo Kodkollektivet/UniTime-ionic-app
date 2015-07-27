@@ -14,3 +14,8 @@
 {
     display: none !important;
 }
+
+.ng-hide-add,
+.ng-hide-remove {
+    display: none !important;
+}

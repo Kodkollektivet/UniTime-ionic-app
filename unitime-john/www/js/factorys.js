@@ -31,12 +31,13 @@ angular.module('unitime.factorys', ['ngResource'])
             },
 
             addToMyCourses: function(courseIn){
-
+                myCourses = this.getMyCourses();
                 if (!_.contains(_.map(myCourses, function(course){
                         return course.course_code;
                     }), courseIn.course_code)){
 
                     myCourses.push(courseIn);
+                    $localstorage.setObject('myCourses', myCourses);
                     console.log('Course added to my courses');
                     return true;
                 }
@@ -50,11 +51,13 @@ angular.module('unitime.factorys', ['ngResource'])
             },
 
             removeFromMyCourses: function(courseIn){
+                myCourses = this.getMyCourses();
                 if (_.contains(_.map(myCourses, function(course){
                         return course.course_code;
                     }), courseIn.course_code)){
 
                     myCourses.splice(myCourses.indexOf(courseIn), 1);
+                    $localstorage.setObject('myCourses', myCourses);
                     console.log('Course removed from my courses');
                     return true;
                 }
@@ -80,7 +83,7 @@ angular.module('unitime.factorys', ['ngResource'])
                     return [];  // My selected courses
                 }
                 else {
-                    return myCourses;
+                    return $localstorage.getObject('myCourses');
                     //return $localstorage.getObject('myCourses');
                 }
             },

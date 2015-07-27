@@ -81,6 +81,7 @@ angular.module('unitime.controllers', [])
         $scope.removeFromMyCourses = function(courseIn){
             RootData.removeFromMyCourses(courseIn);
             $rootScope.$broadcast('myCoursesUpdated');
+            $scope.myCourses = RootData.getMyCourses();
         }
 
     })

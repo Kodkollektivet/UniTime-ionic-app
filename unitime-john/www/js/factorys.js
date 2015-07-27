@@ -84,15 +84,6 @@ angular.module('unitime.factorys', ['ngResource'])
                     //return $localstorage.getObject('myCourses');
                 }
             },
-            removeFromMyCourses: function(dataIn){
-                myCourses.splice(myCourses.indexOf(dataIn), 1);
-                $localstorage.setObject('myCourses', myCourses);
-                angular.forEach(events, function (event) {
-                    if (event.course_code == dataIn.course_code) {
-                        events.splice(events.indexOf(event), 1);
-                    }
-                })
-            },
             setCourse: function(dataIn){
                 course = dataIn;
             },

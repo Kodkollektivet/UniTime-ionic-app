@@ -23,17 +23,18 @@ angular.module('unitime.controllers', [])
         $scope.course = RootData.getCourse();
         $scope.myCourses = RootData.getMyCourses();
 
-        $scope.thisCourseInMyCourses = function(){
-            if(_.contains(_.map(RootData.getMyCourses(), function(course){
-                    return course.course_code;
-                }), $scope.course['course_code'])){
-                return true;
-
-            }
-            else {
-                return false;
-            }
-        };
+        //$scope.thisCourseInMyCourses = function(){
+        //    if(_.contains(_.map(RootData.getMyCourses(), function(course){
+        //            return course.course_code;
+        //        }), $scope.course['course_code'])){
+        //        return true;
+        //
+        //    }
+        //    else {
+        //        return false;
+        //    }
+        //};
+        $scope.alreadyAdded = RootData.courseInMyCourses(RootData.getCourse());
 
 
         // Function to add course to my list
@@ -42,8 +43,9 @@ angular.module('unitime.controllers', [])
             if(!_.contains(_.map(RootData.getMyCourses(), function(course){
                     return course.course_code;
                 }), $scope.course['course_code'])){
-                RootData.setMyCourses(course);
+                RootData.addToMyCourses(course);
                 $rootScope.$broadcast('myCoursesUpdated');
+                $scope.alreadyAdded = RootData.courseInMyCourses(RootData.getCourse());
             }
         }
     })

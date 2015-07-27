@@ -43,7 +43,7 @@ angular.module('unitime.factorys', ['ngResource'])
                     }), courseIn.course_code)){
 
                     myCourses.push(courseIn);  // Save it to the list
-                    //$localstorage.setObject('myCourses', myCourses);
+                    $localstorage.setObject('myCourses', myCourses);
                     return true;
                 }
                 else {
@@ -57,7 +57,7 @@ angular.module('unitime.factorys', ['ngResource'])
                     }), courseIn.course_code)){
 
                     myCourses.splice(myCourses.indexOf(courseIn), 1);
-                    //$localstorage.setObject('myCourses', myCourses);
+                    $localstorage.setObject('myCourses', myCourses);
 
                     // Remove events from event list
                     angular.forEach(events, function (event) {
@@ -85,11 +85,11 @@ angular.module('unitime.factorys', ['ngResource'])
             },
 
             getMyCourses: function(){
-                if (!$localstorage.getObject('myCourses')) {
+                if ($localstorage.getObject('myCourses' == null)) {
                     return myCourses;  // Returns a empty list
                 }
                 else {
-                    //myCourses = $localstorage.getObject('myCourses');
+                    myCourses = $localstorage.getObject('myCourses');
                     return myCourses;
                 }
             },

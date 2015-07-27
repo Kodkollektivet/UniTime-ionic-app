@@ -28,6 +28,9 @@
                     <h4 ng-show="event.date == dateToday">Today</h4>
                     <h4 ng-show="event.date == dateTomorrow">Tomorrow</h4>
 
+                    <i ng-show="event.date == dateToday" class="icon ion-flag"></i>
+
+                    <i ng-show="event.date == dateTomorrow" class="icon ion-flag"></i>
                     <h4>{{ event.startdate }}</h4>
                     <p>{{ event.name_en }}</p>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>

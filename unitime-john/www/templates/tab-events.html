@@ -3,7 +3,6 @@
         <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
         </ion-refresher>
 
-
                 <div class="card" ng-show="myCourses.length == 0">
                     <div ng-show="myCourses.length > 0 && events.length == 0" class="item item-text-wrap" align="center">
                         You have no lecture in your courses!
@@ -12,13 +11,13 @@
                         <h1>Welcome to UniTime!</h1>
                         <p>The perfect app for you to keep track of your schedule!</p>
                         <p>Press the "Add course" button!</p>
-                    </div>
 
-                    <button ui-sref="tab.courses" class="button button-block button-large button-dark">
-                        <i class="icon ion-search placeholder-icon"></i>
-                        Handle courses
-                        <i class="icon ion-folder placeholder-icon"></i>
-                    </button>
+                        <button ui-sref="tab.courses" class="button button-block button-large button-dark">
+                            <i class="icon ion-search placeholder-icon"></i>
+                            Handle courses
+                            <i class="icon ion-folder placeholder-icon"></i>
+                        </button>
+                    </div>
 
                 </div>
 

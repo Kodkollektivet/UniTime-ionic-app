@@ -1,0 +1,40 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Course Info">
+    <div class="verticalCenter card">
+
+        <div class="item item-text-wrap" align="center">
+            <h2>{{course.course_code}}</h2>
+            <p>{{course.name_en}}</p>
+            <p>{{course.name_sv}}</p>
+            <p>{{course.course_points}}</p>
+            <p>{{course.course_speed}}</p>
+            <p>{{course.semester}} - {{course.year}}</p>
+            <p>{{course.course_location}}</p>
+            <p>{{course.course_language}}</p>
+            <p>{{course.url}}</p>
+
+            <a target="_system" href="{{course.syllabus_en}}">Syllabus EN</a>
+            <a target="_system" href="{{course.syllabus_sv}}">Syllabus SV</a>
+
+            <button ng-cloak ng-hide="thisCourseInMyCourses == true" class="button button-dark button-block ng-cloak" ng-click="addCourseToSelectedCourses(course)">
+                <i class="icon ion-plus-round placeholder-icon"></i>
+                Add course
+            </button>
+
+            <button ng-cloak ng-hide="thisCourseInMyCourses == false" class="button button-dark button-clear button-block ng-cloak">
+                <i class="icon ion-plus-round placeholder-icon"></i>
+                Course added!
+            </button>
+
+        </div>
+
+
+
+
+    </div>
+</ion-view>

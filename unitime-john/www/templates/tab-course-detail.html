@@ -7,19 +7,27 @@
 <ion-view view-title="Course Info">
     <div class="verticalCenter card">
 
-        <div class="item item-text-wrap" align="center">
-            <h2>{{course.course_code}}</h2>
-            <p>{{course.name_en}}</p>
-            <p>{{course.name_sv}}</p>
-            <p>{{course.course_points}}</p>
-            <p>{{course.course_speed}}</p>
-            <p>{{course.semester}} - {{course.year}}</p>
-            <p>{{course.course_location}}</p>
-            <p>{{course.course_language}}</p>
-            <p>{{course.url}}</p>
+        <div align="center">
+            <div class="item" align="center">
+                <h2>{{course.course_code}}</h2>
+                <p>{{course.name_en}}</p>
+                <p>{{course.name_sv}}</p>
+                <p>{{course.course_points}}</p>
+                <p>{{course.course_speed}}</p>
+                <p>{{course.semester}} - {{course.year}}</p>
+                <p>{{course.course_location}}</p>
+                <p>{{course.course_language}}</p>
+            </div>
+            <a class="item" ng-click="openUrl()">
+                Link to course.
+            </a>
+            <a class="item" ng-click="openSyllabusEN()">
+                Syllabus English.
+            </a>
+            <a class="item" ng-click="openSyllabusSV()">
+                Syllabus Swedish.
+            </a>
 
-            <a target="_system" href="{{course.syllabus_en}}">Syllabus EN</a>
-            <a target="_system" href="{{course.syllabus_sv}}">Syllabus SV</a>
 
             <button ng-cloak ng-hide="alreadyAdded == true" class="button button-dark button-block ng-cloak" ng-click="addCourseToSelectedCourses()">
                 <i class="icon ion-plus-round placeholder-icon"></i>
@@ -30,11 +38,7 @@
                 <i class="icon ion-plus-round placeholder-icon"></i>
                 Course added!
             </button>
-
         </div>
-
-
-
 
     </div>
 </ion-view>

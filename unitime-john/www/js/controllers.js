@@ -56,6 +56,18 @@ angular.module('unitime.controllers', [])
                 $rootScope.$broadcast('myCoursesUpdated');
                 $scope.alreadyAdded = true;
             }
+        };
+
+        $scope.openUrl = function(){
+            window.open($scope.course['url'], '_system', 'location=yes');
+        }
+
+        $scope.openSyllabusEN = function(){
+            window.open($scope.course['syllabus_en'], '_system', 'location=yes');
+        }
+
+        $scope.openSyllabusSV = function(){
+            window.open($scope.course['syllabus_sv'], '_system', 'location=yes');
         }
     })
 

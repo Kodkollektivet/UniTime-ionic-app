@@ -9,7 +9,8 @@ angular.module('unitime', [
     'ionic',
     'unitime.controllers',
     'unitime.services',
-    'unitime.factorys'
+    'unitime.factorys',
+    'jett.ionic.filter.bar'
 ])
 
 .run(function($ionicPlatform) {
@@ -28,9 +29,21 @@ angular.module('unitime', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicFilterBarConfigProvider) {
 
         $ionicConfigProvider.tabs.position('bottom');
+
+        // Ionic Filter bar config
+        /*
+         $ionicFilterBarConfigProvider.theme('calm');
+         $ionicFilterBarConfigProvider.clear('ion-close');
+         $ionicFilterBarConfigProvider.search('ion-search');
+         */
+        $ionicFilterBarConfigProvider.placeholder('Filter');
+        $ionicFilterBarConfigProvider.backdrop(false);
+        $ionicFilterBarConfigProvider.transition('horizontal');
+
+
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.

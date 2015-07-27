@@ -1,8 +1,9 @@
 angular.module('unitime.controllers', [])
 
-    .controller('CourseController', function($scope, $state, Course, RootData, item) {
+    .controller('CourseController', function($scope, $state, Course, RootData, item, $ionicFilterBar) {
         $scope.allCourses = item;  // All courses
         $scope.course;  // Specific course object
+        var filterBarInstance;
 
         // This gets all the courses
 
@@ -15,6 +16,30 @@ angular.module('unitime.controllers', [])
                 $state.go('tab.course-detail');
             });
         }
+
+
+
+        $scope.showFilterBar = function () {
+            filterBarInstance = $ionicFilterBar.show({
+                items: $scope.allCourses,
+                update: function (filteredItems) {
+                    $scope.allCourses = filteredItems;
+                }
+            });
+        };
+
+        $scope.refreshItems = function () {
+            if (filterBarInstance) {
+                filterBarInstance();
+                filterBarInstance = null;
+            }
+
+            $timeout(function () {
+                getItems();
+                $scope.$broadcast('scroll.refreshComplete');
+            }, 1000);
+        };
+
     })
 
     // Detailed course view, and add course to my courses

@@ -94,7 +94,7 @@ angular.module('unitime.controllers', [])
         }
 
         $scope.$on('myCoursesUpdated', function(event, args) {
-            $scope.events = RootData.getEvents();
+            $scope.myCourses = RootData.getMyCourses();
         });
     })
 

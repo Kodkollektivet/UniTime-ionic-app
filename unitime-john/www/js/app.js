@@ -10,7 +10,8 @@ angular.module('unitime', [
     'unitime.controllers',
     'unitime.services',
     'unitime.factorys',
-    'jett.ionic.filter.bar'
+    'jett.ionic.filter.bar',
+    'ionic.rating'
 ])
 
 .run(function($ionicPlatform) {

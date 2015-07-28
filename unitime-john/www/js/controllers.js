@@ -79,19 +79,23 @@ angular.module('unitime.controllers', [])
                 $scope.myCourses = RootData.getMyCourses();
                 $rootScope.$broadcast('myCoursesUpdated');
             }
-        }
+        };
 
         $scope.openUrl = function(courseIn){
             window.open(courseIn.url, '_system', 'location=yes');
-        }
+        };
 
         $scope.openSyllabusEN = function(courseIn){
             window.open(courseIn.syllabus_en, '_system', 'location=yes');
-        }
+        };
 
         $scope.openSyllabusSV = function(courseIn){
             window.open(courseIn.syllabus_sv, '_system', 'location=yes');
         }
+
+        $scope.$on('myCoursesUpdated', function(event, args) {
+            $scope.events = RootData.getEvents();
+        });
     })
 
     .controller('EventsController', function($scope, $state, RootData, $ionicPopup) {
@@ -145,4 +149,41 @@ angular.module('unitime.controllers', [])
     })
     .controller('CalendarCtrl', function($scope, $compile, $timeout) {
 
+    })
+
+.controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope) {
+
+    // Triggered on a button click, or some other target
+    $scope.showPopup = function(course) {
+        $scope.rating = 4;
+        $scope.data = {
+            rating : 1,
+            max: 5
+        };
+
+        // An elaborate, custom popup
+        var myPopup = $ionicPopup.show({
+            template: '<rating ng-model="data.rating" max="data.max"></rating>',
+            title: 'Rating',
+            subTitle: 'Please rate this course.',
+            scope: $scope,
+            buttons: [
+                { text: 'Cancel' },
+                {
+                    text: '<b>Rate</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                        if(RootData.removeFromMyCourses(course)){
+                            $scope.myCourses = RootData.getMyCourses();
+                            $rootScope.$broadcast('myCoursesUpdated');
+                            return $scope.data.rating;
+                        }
+                    }
+                }
+            ]
+        });
+        myPopup.then(function(res) {
+            console.log('Tapped!', res);
+        });
+    };
     });

@@ -18,8 +18,14 @@ angular.module('unitime.factorys', ['ngResource'])
     // Factory for sending in course ratings
     .factory('Rate', function($resource){
         return $resource('http://unitime.se/api/rate/', {}, {
-            'save': {method: 'POST', headers: {
-                'Content-Type': 'application/json'
+            'save': {method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+                async: false,
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
                 }
             }
         });

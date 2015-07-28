@@ -177,7 +177,7 @@ angular.module('unitime.controllers', [])
                         if(RootData.removeFromMyCourses(course)){
                             $rootScope.$broadcast('myCoursesUpdated');
                             value = $scope.data.rating;
-                            rate = {course_code: course['course_code'], course_rate: value.toString(), notes: "testar testar"};
+                            var rate = {course_code: course['course_code'], course_rate: value.toString(), notes: "ionicClient"};
                             Rate.save(rate);
                             return value;
                         }

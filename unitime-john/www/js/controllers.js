@@ -151,21 +151,22 @@ angular.module('unitime.controllers', [])
 
     })
 
-.controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope) {
+.controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope, Rate) {
 
     // Triggered on a button click, or some other target
     $scope.showPopup = function(course) {
+        RootData.setCourse(course);
+        $scope.course = RootData.getCourse();
         $scope.rating = 4;
         $scope.data = {
             rating : 1,
             max: 5
         };
-
         // An elaborate, custom popup
         var myPopup = $ionicPopup.show({
             template: '<rating ng-model="data.rating" max="data.max"></rating>',
             title: 'Rating',
-            subTitle: 'Please rate this course.',
+            subTitle: 'Please rate the course ' + course['name_en'],
             scope: $scope,
             buttons: [
                 { text: 'Cancel' },
@@ -174,9 +175,11 @@ angular.module('unitime.controllers', [])
                     type: 'button-positive',
                     onTap: function(e) {
                         if(RootData.removeFromMyCourses(course)){
-                            $scope.myCourses = RootData.getMyCourses();
                             $rootScope.$broadcast('myCoursesUpdated');
-                            return $scope.data.rating;
+                            value = $scope.data.rating;
+                            rate = {course_code: course['course_code'], course_rate: value.toString(), notes: "testar testar"};
+                            Rate.save(rate);
+                            return value;
                         }
                     }
                 }

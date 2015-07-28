@@ -30,8 +30,10 @@ angular.module('unitime', [
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicFilterBarConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicFilterBarConfigProvider, $resourceProvider) {
 
+
+        $resourceProvider.defaults.stripTrailingSlashes = false;
         $ionicConfigProvider.tabs.position('bottom');
 
         // Ionic Filter bar config

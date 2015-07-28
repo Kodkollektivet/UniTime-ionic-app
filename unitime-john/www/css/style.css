@@ -19,3 +19,8 @@
 .ng-hide-remove {
     display: none !important;
 }
+
+.popup {
+    width: 50vh;
+    height: 40vh;
+}

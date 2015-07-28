@@ -15,6 +15,17 @@ angular.module('unitime.factorys', ['ngResource'])
         })
     })
 
+    // Factory for sending in course ratings
+    .factory('Rate', function($resource){
+        return $resource('http://unitime.se/api/rate/', {}, {
+            'save': {method: 'POST', headers: {
+                'Content-Type': 'application/json'
+                }
+            }
+        });
+    })
+
+
     // RootData factory, for transporting data between scopes
     .factory('RootData', function($localstorage, Event){
         var allCourses = [];  // All courses list

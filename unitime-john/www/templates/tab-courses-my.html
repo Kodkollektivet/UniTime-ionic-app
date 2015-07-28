@@ -19,7 +19,7 @@
                         <p>{{course.course_location}}</p>
                         <p>{{course.course_language}}</p>
                     </div>
-                    <a class="item" ng-click="openUrl(course)">
+                    <a ng-if="course.url.length > 5" class="item" ng-click="openUrl(course)">
                         Link to course.
                     </a>
                     <a class="item" ng-click="openSyllabusEN(course)">

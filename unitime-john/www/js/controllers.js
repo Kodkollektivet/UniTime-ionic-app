@@ -155,8 +155,6 @@ angular.module('unitime.controllers', [])
 
     // Triggered on a button click, or some other target
     $scope.showPopup = function(course) {
-        RootData.setCourse(course);
-        $scope.course = RootData.getCourse();
         $scope.rating = 4;
         $scope.data = {
             rating : 1,
@@ -189,9 +187,6 @@ angular.module('unitime.controllers', [])
                     }
                 }
             ]
-        });
-        myPopup.then(function(res) {
-            console.log('Tapped!', res);
         });
     };
     });

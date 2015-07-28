@@ -147,7 +147,8 @@ angular.module('unitime.controllers', [])
 
         };
     })
-    .controller('CalendarCtrl', function($scope, $compile, $timeout) {
+    .controller('CalendarCtrl', function($scope, $state, $compile, RootData) {
+        $scope.events = RootData.getEvents();
         /* config object */
         $scope.uiConfig = {
             calendar:{
@@ -163,24 +164,23 @@ angular.module('unitime.controllers', [])
             }
         };
 
-        var date = new Date();
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear();
-
         $scope.eventSources = [
             [
                 {
                     "title": 'All Day Event',
-                    "start": new Date(y, m, d)
+                    "start": new Date()
                 },
                 {
                     "title": 'Long Event',
-                    "start": new Date(y, m, d - 5),
-                    "end": new Date(y, m, d - 2)
+                    "start": new Date(),
+                    "end": new Date()
                 }
             ]
         ];
+
+        $scope.$on('myCoursesUpdated', function(event, args) {
+            console.log('hesan');
+        });
 
     })
 

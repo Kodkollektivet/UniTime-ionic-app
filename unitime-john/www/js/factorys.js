@@ -115,7 +115,7 @@ angular.module('unitime.factorys', ['ngResource'])
             getEvents: function(){
                 //return events;
                 events = [];
-                angular.forEach(this.getMyCourses(), function(course){
+                angular.forEach(myCourses, function(course){
 
                     // Send get request to API, reponse will be a list of event objects
                     Event.get({course:course['course_code']},function(response){

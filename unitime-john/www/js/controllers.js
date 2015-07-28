@@ -169,7 +169,12 @@ angular.module('unitime.controllers', [])
             subTitle: 'Please rate the course ' + course['name_en'],
             scope: $scope,
             buttons: [
-                { text: 'Cancel' },
+                { text: 'Cancel' ,
+                onTap: function (e) {
+                    if(RootData.removeFromMyCourses(course)) {
+                        $rootScope.$broadcast('myCoursesUpdated');
+                    }
+                }},
                 {
                     text: '<b>Rate</b>',
                     type: 'button-positive',

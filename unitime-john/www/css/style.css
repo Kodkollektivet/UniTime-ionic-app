@@ -21,6 +21,6 @@
 }
 
 .popup {
-    width: 50vh;
-    height: 40vh;
+    width: inherit !important;
+    height: inherit !important;
 }

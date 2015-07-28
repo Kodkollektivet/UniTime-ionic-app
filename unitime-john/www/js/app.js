@@ -11,7 +11,8 @@ angular.module('unitime', [
     'unitime.services',
     'unitime.factorys',
     'jett.ionic.filter.bar',
-    'ionic.rating'
+    'ionic.rating',
+    'ui.calendar'
 ])
 
 .run(function($ionicPlatform) {

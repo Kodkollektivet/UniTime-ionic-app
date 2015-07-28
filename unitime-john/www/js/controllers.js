@@ -148,6 +148,39 @@ angular.module('unitime.controllers', [])
         };
     })
     .controller('CalendarCtrl', function($scope, $compile, $timeout) {
+        /* config object */
+        $scope.uiConfig = {
+            calendar:{
+                height: 450,
+                editable: true,
+                header:{
+                    left: 'month agendaWeek agendaDay',
+                    center: 'title',
+                    right: 'today prev,next'
+                },
+                dayClick: $scope.alertEventOnClick,
+                eventResize: $scope.alertOnResize
+            }
+        };
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        $scope.eventSources = [
+            [
+                {
+                    "title": 'All Day Event',
+                    "start": new Date(y, m, d)
+                },
+                {
+                    "title": 'Long Event',
+                    "start": new Date(y, m, d - 5),
+                    "end": new Date(y, m, d - 2)
+                }
+            ]
+        ];
 
     })
 

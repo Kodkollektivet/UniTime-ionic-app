@@ -98,7 +98,7 @@ angular.module('unitime.controllers', [])
         });
     })
 
-    .controller('EventsController', function($scope, $state, RootData, $ionicPopup) {
+    .controller('EventsController', function($scope, $state, RootData, $ionicPopup, $rootScope, $timeout) {
         $scope.events = RootData.getEvents();
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
@@ -121,7 +121,12 @@ angular.module('unitime.controllers', [])
 
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.events = RootData.getEvents();
+            $timeout(callAtTimeout, 3000);
         });
+
+        function callAtTimeout() {
+            $rootScope.$broadcast('calendarUpdate', $scope.events);
+        }
 
         // Show today alert popup
         $scope.showTodayPopup = function() {
@@ -147,8 +152,8 @@ angular.module('unitime.controllers', [])
 
         };
     })
-    .controller('CalendarCtrl', function($scope, $state, $compile, RootData) {
-        $scope.events = RootData.getEvents();
+    .controller('CalendarCtrl', function($scope, $state, $compile, RootData, uiCalendarConfig) {
+        $scope.events = [];
         /* config object */
         $scope.uiConfig = {
             calendar:{
@@ -159,6 +164,8 @@ angular.module('unitime.controllers', [])
                     center: 'title',
                     right: 'today prev,next'
                 },
+                timeFormat: 'H:mm',
+                axisFormat: 'H:mm',
                 dayClick: $scope.alertEventOnClick,
                 eventResize: $scope.alertOnResize
             }
@@ -175,12 +182,24 @@ angular.module('unitime.controllers', [])
                     "start": new Date(),
                     "end": new Date()
                 }
-            ]
+            ],
+            $scope.events
         ];
 
-        $scope.$on('myCoursesUpdated', function(event, args) {
-            console.log('hesan');
+        $scope.$on('calendarUpdate', function(event, args) {
+            console.log(args);
+            angular.forEach(args, function (testevent) {
+                $scope.events.push({
+                    title: testevent['name_en'],
+                    start: testevent['start_datetime'],
+                    end: testevent['end_datetime'],
+                    stick: true
+                });
+                console.log('added');
+            });
+            uiCalendarConfig.calendars['myCalendar'].fullCalendar('rerenderEvents');
         });
+
 
     })
 

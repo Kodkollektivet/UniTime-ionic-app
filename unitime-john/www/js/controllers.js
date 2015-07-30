@@ -102,9 +102,10 @@ angular.module('unitime.controllers', [])
         $scope.events = RootData.getEvents();
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
-        $scope.dateToday = new Date().setHours(0,0,0,0);
-        var date_today_1 = new Date();
-        $scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
+        var today = new Date().setHours(0,0,0,0);
+        $scope.dateToday = moment(today).toDate();
+        $scope.dateTomorrow = moment(today).add(1, 'days').toDate();
+        //$scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
 
         $scope.eventDetail = function(dataIn){
@@ -116,7 +117,7 @@ angular.module('unitime.controllers', [])
             //getEventsFromAPI();
             $scope.events = RootData.getEvents();
             $scope.$broadcast('scroll.refreshComplete');
-            $scope.$apply()
+            $scope.$apply();
         };
 
         $scope.$on('myCoursesUpdated', function(event, args) {

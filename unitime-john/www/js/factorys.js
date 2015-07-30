@@ -67,18 +67,19 @@ angular.module('unitime.factorys', ['ngResource'])
             });
         };
         var getMyCourses = function(){
-            if ($localstorage.getObject('myCourses' == null)) {
+            var temp = $localstorage.getObject('myCourses');
+            if ((temp == null) || (temp.length == 0)) {
                 return myCourses;  // Returns a empty list
             }
             else {
-                myCourses = $localstorage.getObject('myCourses');
+                myCourses = temp;
                 return myCourses;
             }
         };
         _.observe(myCourses, function(new_array, old_array) {
             getEventsRequest();
         });
-        getEventsRequest();
+
         return {
             setAllCourses: function(dataIn){
                 allCourses = dataIn;

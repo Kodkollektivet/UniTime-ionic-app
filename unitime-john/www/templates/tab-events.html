@@ -27,7 +27,7 @@
                 <br>
                 <br>
                 <p>Lucky you!</p>
-                <p>Have a coffie and enyoj life!</p>
+                <p>Have a coffee and enjoy life!</p>
                 <br>
                 <br>
                 <button ui-sref="tab.courses" class="button button-block button-large button-dark">
@@ -39,11 +39,11 @@
         </div>
 
         <ion-list ng-hide="myCourses.length == 0">
-            <ion-item class="item-icon-left" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" item-height="130" item-width="100%" type="item-text-wrap">
+            <ion-item class="item-icon-left" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses" type="item-text-wrap">
                 <div>
-                    <i ng-show="event.date == dateToday" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
+                    <i ng-show="event.date == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
                     <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
-                    <i ng-show="event.date == dateTomorrow" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
+                    <i ng-show="event.date == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
                 </div>
 
                 <div align="center" ng-click="eventDetail(event)">

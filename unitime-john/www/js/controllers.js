@@ -167,38 +167,42 @@ angular.module('unitime.controllers', [])
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
                 dayClick: $scope.alertEventOnClick,
-                eventResize: $scope.alertOnResize
+                eventResize: $scope.alertOnResize,
+                displayEventEnd: {
+                    month: true,
+                    basicWeek: true,
+                    "default": true
+                }
             }
         };
+        $('#myCalendar').fullCalendar('rerenderEvents');
+        $scope.eventSources = [ $scope.events ];
 
-        $scope.eventSources = [
-            [
-                {
-                    "title": 'All Day Event',
-                    "start": new Date()
-                },
-                {
-                    "title": 'Long Event',
-                    "start": new Date(),
-                    "end": new Date()
-                }
-            ],
-            $scope.events
-        ];
-
-        $scope.$on('calendarUpdate', function(event, args) {
-            console.log(args);
-            angular.forEach(args, function (testevent) {
+        _.observe(RootData.getEvents(), function(new_array, old_array) {
+            $scope.events.splice(0, $scope.events.length);
+            angular.forEach(RootData.getEvents(), function (event) {
                 $scope.events.push({
-                    title: testevent['name_en'],
-                    start: testevent['start_datetime'],
-                    end: testevent['end_datetime'],
+                    title: event['name_en'],
+                    start: event['start_datetime'],
+                    end: event['end_datetime'],
                     stick: true
                 });
-                console.log('added');
             });
-            uiCalendarConfig.calendars['myCalendar'].fullCalendar('rerenderEvents');
+            $('#myCalendar').fullCalendar('rerenderEvents');
         });
+        //$scope.$on('calendarUpdate', function(event, args) {
+        //    console.log(args);
+        //    angular.forEach(args, function (testevent) {
+        //        $scope.events.push({
+        //            title: testevent['name_en'],
+        //            start: testevent['start_datetime'],
+        //            end: testevent['end_datetime'],
+        //            stick: true
+        //        });
+        //        console.log('added');
+        //    });
+        //    uiCalendarConfig.calendars['myCalendar'].fullCalendar('rerenderEvents');
+        //});
 
 
     })

@@ -33,12 +33,52 @@ angular.module('unitime.factorys', ['ngResource'])
 
 
     // RootData factory, for transporting data between scopes
-    .factory('RootData', function($localstorage, Event){
+    .factory('RootData', function($localstorage, Event, Course){
         var allCourses = [];  // All courses list
         var myCourses = [];  //My courses list
         var course;  // Single course object
         var events = [];  // Events list
         var event;  // Single event object
+
+        var getEventsRequest = function () {
+            events.splice(0, events.length);
+            angular.forEach(getMyCourses(), function(course){
+
+                // Send get request to API, reponse will be a list of event objects
+                Event.get({course:course['course_code']},function(response){
+
+                    // Iterate over response and add events to events list
+                    angular.forEach(response, function(event){
+                        var date = event['startdate'].split('-');
+
+                        var starttime = event['starttime'].split(':');
+                        var endtime = event['endtime'].split(':');
+                        var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
+                        var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
+                        var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
+                        event['date'] = start_date;
+                        event['start_datetime'] = start_datetime;
+                        event['end_datetime'] = end_datetime;
+
+                        // Add event to list
+                        events.push(event);
+                    });
+                });
+            });
+        };
+        var getMyCourses = function(){
+            if ($localstorage.getObject('myCourses' == null)) {
+                return myCourses;  // Returns a empty list
+            }
+            else {
+                myCourses = $localstorage.getObject('myCourses');
+                return myCourses;
+            }
+        };
+        _.observe(myCourses, function(new_array, old_array) {
+            getEventsRequest();
+        });
+        getEventsRequest();
         return {
             setAllCourses: function(dataIn){
                 allCourses = dataIn;
@@ -75,7 +115,7 @@ angular.module('unitime.factorys', ['ngResource'])
 
                     myCourses.splice(myCourses.indexOf(courseIn), 1);
                     $localstorage.setObject('myCourses', myCourses);
-
+                    getEventsRequest();
                     return true;
                 }
                 else {
@@ -113,31 +153,6 @@ angular.module('unitime.factorys', ['ngResource'])
                 events = dataIn;
             },
             getEvents: function(){
-                //return events;
-                events = [];
-                angular.forEach(myCourses, function(course){
-
-                    // Send get request to API, reponse will be a list of event objects
-                    Event.get({course:course['course_code']},function(response){
-
-                        // Iterate over response and add events to events list
-                        angular.forEach(response, function(event){
-                            var date = event['startdate'].split('-');
-
-                            var starttime = event['starttime'].split(':');
-                            var endtime = event['endtime'].split(':');
-                            var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
-                            var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
-                            var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
-                            event['date'] = start_date;
-                            event['start_datetime'] = start_datetime;
-                            event['end_datetime'] = end_datetime;
-
-                            // Add event to list
-                            events.push(event);
-                        });
-                    });
-                });
                 return events;
             },
             setEvent: function(dataIn){

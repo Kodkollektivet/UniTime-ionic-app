@@ -91,7 +91,7 @@ angular.module('unitime.controllers', [])
 
         $scope.openSyllabusSV = function(courseIn){
             window.open(courseIn.syllabus_sv, '_system', 'location=yes');
-        }
+        };
 
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.myCourses = RootData.getMyCourses();
@@ -152,7 +152,6 @@ angular.module('unitime.controllers', [])
 
         var alertOnEventClick = function( event, jsEvent, view){
             showPopup(event);
-            //$scope.event = ;
         };
         /* config object */
         $scope.uiConfig = {
@@ -174,7 +173,11 @@ angular.module('unitime.controllers', [])
                 }
             }
         };
-        $('#myCalendar').fullCalendar('rerenderEvents');
+
+        $scope.$on('$ionicView.enter', function() {
+            $('#myCalendar').fullCalendar('rerenderEvents');
+        });
+
         $scope.eventSources = [ $scope.events ];
 
         _.observe(RootData.getEvents(), function(new_array, old_array) {
@@ -190,10 +193,9 @@ angular.module('unitime.controllers', [])
                 if (/redovisning|tentamen|tenta|examination/.test(event['info'].toLowerCase())) {
                     data['color'] = '#B80000';
                 }
-                console.log(event['info'].toLowerCase());
                 $scope.events.push(data);
             });
-            $('#myCalendar').fullCalendar('rerenderEvents');
+            //$('#myCalendar').fullCalendar('rerenderEvents');
         });
 
         var showPopup = function (event) {

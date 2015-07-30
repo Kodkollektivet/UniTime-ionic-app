@@ -115,7 +115,6 @@ angular.module('unitime.factorys', ['ngResource'])
 
                     myCourses.splice(myCourses.indexOf(courseIn), 1);
                     $localstorage.setObject('myCourses', myCourses);
-                    getEventsRequest();
                     return true;
                 }
                 else {

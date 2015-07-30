@@ -21,12 +21,12 @@
 }
 
 .popup {
-    width: inherit !important;
-    height: inherit !important;
+    width: 40vw !important;
+    height: 50vh !important;
 }
 
-.card, .list-inset {
-    margin-bottom: 0.7em;
+#myCoursesCard {
+    margin-bottom: 0.7em !important;
 }
 
 .pace {

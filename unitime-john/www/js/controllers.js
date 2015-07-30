@@ -98,7 +98,7 @@ angular.module('unitime.controllers', [])
         });
     })
 
-    .controller('EventsController', function($scope, $state, RootData, $ionicPopup, $rootScope, $timeout) {
+    .controller('EventsController', function($scope, $state, RootData, $ionicPopup) {
         $scope.events = RootData.getEvents();
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
@@ -121,12 +121,7 @@ angular.module('unitime.controllers', [])
 
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.events = RootData.getEvents();
-            $timeout(callAtTimeout, 3000);
         });
-
-        function callAtTimeout() {
-            $rootScope.$broadcast('calendarUpdate', $scope.events);
-        }
 
         // Show today alert popup
         $scope.showTodayPopup = function() {
@@ -152,8 +147,13 @@ angular.module('unitime.controllers', [])
 
         };
     })
-    .controller('CalendarCtrl', function($scope, $state, $compile, RootData, uiCalendarConfig) {
+    .controller('CalendarCtrl', function($scope, $state, $compile, RootData, uiCalendarConfig, ngDialog) {
         $scope.events = [];
+
+        var alertOnEventClick = function( event, jsEvent, view){
+            showPopup(event);
+            //$scope.event = ;
+        };
         /* config object */
         $scope.uiConfig = {
             calendar:{
@@ -166,8 +166,7 @@ angular.module('unitime.controllers', [])
                 },
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
-                dayClick: $scope.alertEventOnClick,
-                eventResize: $scope.alertOnResize,
+                eventClick: alertOnEventClick,
                 displayEventEnd: {
                     month: true,
                     basicWeek: true,
@@ -181,30 +180,30 @@ angular.module('unitime.controllers', [])
         _.observe(RootData.getEvents(), function(new_array, old_array) {
             $scope.events.splice(0, $scope.events.length);
             angular.forEach(RootData.getEvents(), function (event) {
-                $scope.events.push({
+                var data = {
                     title: event['name_en'],
                     start: event['start_datetime'],
                     end: event['end_datetime'],
+                    info: event,
                     stick: true
-                });
+                };
+                if (/redovisning|tentamen|tenta|examination/.test(event['info'].toLowerCase())) {
+                    data['color'] = '#B80000';
+                }
+                console.log(event['info'].toLowerCase());
+                $scope.events.push(data);
             });
             $('#myCalendar').fullCalendar('rerenderEvents');
         });
-        //$scope.$on('calendarUpdate', function(event, args) {
-        //    console.log(args);
-        //    angular.forEach(args, function (testevent) {
-        //        $scope.events.push({
-        //            title: testevent['name_en'],
-        //            start: testevent['start_datetime'],
-        //            end: testevent['end_datetime'],
-        //            stick: true
-        //        });
-        //        console.log('added');
-        //    });
-        //    uiCalendarConfig.calendars['myCalendar'].fullCalendar('rerenderEvents');
-        //});
 
-
+        var showPopup = function (event) {
+            $scope.event = event['info'];
+            ngDialog.open({
+                template: 'templates/event-info.html',
+                className: 'ngdialog-theme-default',
+                scope: $scope
+            });
+    };
     })
 
 .controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope, Rate) {

@@ -12,7 +12,8 @@ angular.module('unitime', [
     'unitime.factorys',
     'jett.ionic.filter.bar',
     'ionic.rating',
-    'ui.calendar'
+    'ui.calendar',
+    'ngDialog'
 ])
 
 .run(function($ionicPlatform) {

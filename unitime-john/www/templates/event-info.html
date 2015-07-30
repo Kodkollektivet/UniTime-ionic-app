@@ -1,0 +1,14 @@
+
+<div>
+    <h2 align="center">{{event.name_en}}</h2>
+    <div class="card">
+        <div class="item" align="center">
+            <p>{{event.startdate}}</p>
+            <p>{{event.starttime}} - {{event.endtime}}</p>
+            <p ng->Room: {{event.room === "" ? "No room" : event.room}}</p>
+            <p>Teacher: {{event.teacher === "" ? "No teacher" : event.teacher}}</p>
+            <p>Info: {{event.info === "" ? "No info" : event.info}}</p>
+            <p>Description: {{event.desc === "" ? "No description" : event.desc}}</p>
+        </div>
+    </div>
+</div>

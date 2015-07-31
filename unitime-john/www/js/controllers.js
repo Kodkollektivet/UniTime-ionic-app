@@ -60,15 +60,15 @@ angular.module('unitime.controllers', [])
 
         $scope.openUrl = function(){
             window.open($scope.course['url'], '_system', 'location=yes');
-        }
+        };
 
         $scope.openSyllabusEN = function(){
             window.open($scope.course['syllabus_en'], '_system', 'location=yes');
-        }
+        };
 
         $scope.openSyllabusSV = function(){
             window.open($scope.course['syllabus_sv'], '_system', 'location=yes');
-        }
+        };
     })
 
     .controller('MyCoursesController', function($scope, $rootScope, $state, RootData) {
@@ -120,8 +120,13 @@ angular.module('unitime.controllers', [])
             $scope.$apply();
         };
 
+        $scope.checkIfImportant = function (event) {
+            return !!/redovisning|tentamen|tenta|examination/.test(event['info'].toLowerCase());
+        };
+
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.events = RootData.getEvents();
+            console.log($scope.events);
         });
 
         // Show today alert popup

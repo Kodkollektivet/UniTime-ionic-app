@@ -35,14 +35,14 @@ angular.module('unitime.factorys', ['ngResource'])
     // RootData factory, for transporting data between scopes
     .factory('RootData', function($localstorage, Event, Course){
         var allCourses = [];  // All courses list
-        var myCourses = [];  //My courses list
+        var myCourses = $localstorage.getObject('myCourses');  //My courses list
         var course;  // Single course object
         var events = [];  // Events list
         var event;  // Single event object
 
         var getEventsRequest = function () {
             events.splice(0, events.length);
-            angular.forEach(getMyCourses(), function(course){
+            angular.forEach(myCourses, function(course){
 
                 // Send get request to API, reponse will be a list of event objects
                 Event.get({course:course['course_code']},function(response){
@@ -65,16 +65,6 @@ angular.module('unitime.factorys', ['ngResource'])
                     });
                 });
             });
-        };
-        var getMyCourses = function(){
-            var temp = $localstorage.getObject('myCourses');
-            if ((temp == null) || (temp.length == 0)) {
-                return myCourses;  // Returns a empty list
-            }
-            else {
-                myCourses = temp;
-                return myCourses;
-            }
         };
         _.observe(myCourses, function(new_array, old_array) {
             getEventsRequest();
@@ -135,13 +125,7 @@ angular.module('unitime.factorys', ['ngResource'])
             },
 
             getMyCourses: function(){
-                if ($localstorage.getObject('myCourses' == null)) {
-                    return myCourses;  // Returns a empty list
-                }
-                else {
-                    myCourses = $localstorage.getObject('myCourses');
                     return myCourses;
-                }
             },
             setCourse: function(dataIn){
                 course = dataIn;

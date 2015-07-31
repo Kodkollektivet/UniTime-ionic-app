@@ -61,7 +61,7 @@
                     <p>{{ event.info }}</p>
                 </div>
 
-                <span ng-show="checkIfImportant(event)" class="badge badge-assertive">!</span>
+                <span ng-show="checkIfImportant(event)"  ng-click="showImportantPopup()" class="badge badge-assertive">!</span>
             </ion-item>
         </ion-list>
     </ion-content>

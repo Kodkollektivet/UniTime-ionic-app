@@ -98,7 +98,7 @@ angular.module('unitime.controllers', [])
         });
     })
 
-    .controller('EventsController', function($scope, $state, RootData, $ionicPopup) {
+    .controller('EventsController', function($scope, $state, RootData, $ionicPopup, ngDialog) {
         $scope.events = RootData.getEvents();
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
@@ -131,24 +131,36 @@ angular.module('unitime.controllers', [])
 
         // Show today alert popup
         $scope.showTodayPopup = function() {
-            var alertPopup = $ionicPopup.alert({
-                //title: 'Today!',
-                template: '<div align="center"><h3>Today!</h3></div>',
-                buttons: [
-                    { text: 'Ok' }
-                ]
+            ngDialog.open({
+                template: '<div align="center"><h3>Today</h3>' +
+                '<p align="center">This icon means the event is happening today.</p>' +
+                '<button class="button button-block button-dark" ng-click="closeThisDialog()">Ok</button></div>',
+                className: 'ngdialog-theme-default',
+                plain: true
             });
 
         };
 
         // Show today alert popup
         $scope.showTomorrowPopup = function() {
-            var alertPopup = $ionicPopup.alert({
-                //title: 'Today!',
-                template: '<div align="center"><h2>Tomorrow!</h2></div>',
-                buttons: [
-                    { text: 'Ok' }
-                ]
+            ngDialog.open({
+                template: '<div align="center"><h3>Tomorrow</h3>' +
+                '<p align="center">This icon means the event is happening tomorrow.</p>' +
+                '<button class="button button-block button-dark" ng-click="closeThisDialog()">Ok</button></div>',
+                className: 'ngdialog-theme-default',
+                plain: true
+            });
+
+        };
+
+        // Show important events alert popup
+        $scope.showImportantPopup = function() {
+            ngDialog.open({
+                template: '<div align="center"><h3>Important</h3>' +
+                '<p align="center">This icon means the event is important, for instance a presentation or an exam.</p>' +
+                '<button class="button button-block button-dark" ng-click="closeThisDialog()">Ok</button></div>',
+                className: 'ngdialog-theme-default',
+                plain: true
             });
 
         };

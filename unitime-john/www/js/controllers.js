@@ -114,8 +114,7 @@ angular.module('unitime.controllers', [])
         };
 
         $scope.doRefresh = function() {
-            //getEventsFromAPI();
-            $scope.events = RootData.getEvents();
+            $scope.events = RootData.getEventsRefresh();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$apply();
         };
@@ -126,7 +125,6 @@ angular.module('unitime.controllers', [])
 
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.events = RootData.getEvents();
-            console.log($scope.events);
         });
 
         // Show today alert popup
@@ -226,42 +224,36 @@ angular.module('unitime.controllers', [])
     };
     })
 
-.controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope, Rate) {
+.controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope, Rate, ngDialog) {
 
     // Triggered on a button click, or some other target
     $scope.showPopup = function(course) {
+        $scope.course = course;
         $scope.rating = 4;
         $scope.data = {
             rating : 1,
             max: 5
         };
-        // An elaborate, custom popup
-        var myPopup = $ionicPopup.show({
-            template: '<rating ng-model="data.rating" max="data.max"></rating>',
-            title: 'Rating',
-            subTitle: 'Please rate the course ' + course['name_en'],
-            scope: $scope,
-            buttons: [
-                { text: 'Cancel' ,
-                onTap: function (e) {
-                    if(RootData.removeFromMyCourses(course)) {
-                        $rootScope.$broadcast('myCoursesUpdated');
-                    }
-                }},
-                {
-                    text: '<b>Rate</b>',
-                    type: 'button-positive',
-                    onTap: function(e) {
-                        if(RootData.removeFromMyCourses(course)){
-                            $rootScope.$broadcast('myCoursesUpdated');
-                            value = $scope.data.rating;
-                            var rate = {course_code: course['course_code'], course_rate: value.toString(), notes: "ionicClient"};
-                            Rate.save(rate);
-                            return value;
-                        }
-                    }
-                }
-            ]
+        var showPopup = ngDialog.open({
+            template: 'templates/course-rating.html',
+            className: 'ngdialog-theme-default',
+            scope: $scope
         });
+
+        $scope.clickSkip = function () {
+            if(RootData.removeFromMyCourses(course)) {
+                $rootScope.$broadcast('myCoursesUpdated');
+            }
+        };
+
+        $scope.clickRate = function () {
+            if(RootData.removeFromMyCourses(course)){
+                $rootScope.$broadcast('myCoursesUpdated');
+                var value = $scope.data.rating;
+                var rate = {course_code: course['course_code'], course_rate: value.toString(), notes: "ionicClient"};
+                Rate.save(rate);
+                return value;
+                }
+        };
     };
-    });
+});

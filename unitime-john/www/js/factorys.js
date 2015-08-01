@@ -144,6 +144,10 @@ angular.module('unitime.factorys', ['ngResource'])
             },
             getEvent: function(){
                 return event;
+            },
+            getEventsRefresh: function () {
+                getEventsRequest();
+                return events;
             }
         };
     })

@@ -103,26 +103,22 @@ angular.module('unitime.controllers', [])
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
         var today = new Date().setHours(0,0,0,0);
-        var date = null;
         $scope.dateToday = moment(today).toDate();
         $scope.dateTomorrow = moment(today).add(1, 'days').toDate();
         //$scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
-        $scope.checkIfNewDate = function (dateIn) {
-            if (date === null) {
-                date = dateIn;
-                return true;
-            }
-            else if (date.isAfter(dateIn)) {
-                date = dateIn;
-                return true;
-            }
-            return false;
-        };
 
         $scope.eventDetail = function(dataIn){
             RootData.setEvent(dataIn);
             $state.go('tab.event-detail');
+        };
+
+        $scope.formatHeader = function (date) {
+            return moment(date).format("D[/]M[ - ]dddd");
+        };
+
+        $scope.formatHeaderWeek = function (date) {
+            return moment(date).format("[Week ]w");
         };
 
         $scope.doRefresh = function() {
@@ -138,6 +134,13 @@ angular.module('unitime.controllers', [])
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.events = RootData.getEvents();
         });
+
+        $scope.getEventHeight = function(event) {
+            return event['newDate'] ? 214 : 140;
+        };
+        $scope.getEventWidth = function(event) {
+            return '100%';
+        };
 
         // Show today alert popup
         $scope.showTodayPopup = function() {

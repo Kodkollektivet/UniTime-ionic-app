@@ -40,6 +40,17 @@ angular.module('unitime.factorys', ['ngResource'])
         var events = [];  // Events list
         var event;  // Single event object
 
+        var checkDate = null;
+
+        var checkIfNewDate = function (event) {
+            checkDate = null;
+            if (checkDate == null || checkDate.getTime() < event['date'].getTime()) {
+                checkDate = event['date'];
+                return true;
+            }
+            return false;
+        };
+
         var getEventsRequest = function () {
             events.splice(0, events.length);
             angular.forEach(myCourses, function(course){
@@ -56,6 +67,8 @@ angular.module('unitime.factorys', ['ngResource'])
                         event['date'] = date;
                         event['start_datetime'] = start_datetime;
                         event['end_datetime'] = end_datetime;
+
+                        event['newDate'] = !!checkIfNewDate(event);
 
                         // Add event to list
                         events.push(event);

@@ -8,10 +8,10 @@
         </div>
         <div class="row">
             <div class="col col-50">
-                <button class="button button-block button-dark" ng-click="clickSkip()">Skip</button>
+                <button class="button button-block button-dark" ng-click="clickSkip(); closeThisDialog()">Skip</button>
             </div>
             <div class="col col-50">
-                <button class="button button-block button-positive" ng-click="clickRate()">Rate</button>
+                <button class="button button-block button-positive" ng-click="clickRate(); closeThisDialog()">Rate</button>
             </div>
         </div>
     </div>

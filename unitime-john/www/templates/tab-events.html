@@ -39,12 +39,13 @@
         </div>
 
         <ion-list ng-hide="myCourses.length == 0">
-            <ion-item class="item-icon-left" collection-repeat="event in events | orderBy: 'start_datetime' | filter : filterCourses"
-                      item-height="130" item-width="100%" type="item-text-wrap">
+
+            <ion-item class="item-icon-left" item-height="130" item-width="100%" type="item-text-wrap"
+                      collection-repeat="event in events | orderBy: 'start_datetime'">
                 <div>
-                    <i ng-show="event.date == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
+                    <i ng-show="event.date.getTime() == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
                     <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
-                    <i ng-show="event.date == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
+                    <i ng-show="event.date.getTime() == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
                 </div>
 
                 <div align="center" ng-click="eventDetail(event)">
@@ -52,16 +53,11 @@
                     <p><b>{{ event.startdate }}</b></p>
                     <p>{{ event.name_en }}</p>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>
-                    <div ng-if="event.room.length > 1">
-                        <p>{{ event.room }}</p>
-                    </div>
-                    <div ng-if="event.room.length <= 0">
-                        <p>No room available</p>
-                    </div>
-                    <p>{{ event.info }}</p>
+                    <p>{{ event.room === "" ? "No room availible" : event.room }}</p>
+                    <p>{{ event.info === "" ? "No info availible" : event.info }}</p>
                 </div>
 
-                <span ng-show="checkIfImportant(event)"  ng-click="showImportantPopup()" class="badge badge-assertive">!</span>
+                <span ng-show="checkIfImportant(event)" style="top: 42% !important;" ng-click="showImportantPopup()" class="badge badge-assertive">!</span>
             </ion-item>
         </ion-list>
     </ion-content>

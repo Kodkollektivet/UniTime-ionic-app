@@ -49,14 +49,11 @@ angular.module('unitime.factorys', ['ngResource'])
 
                     // Iterate over response and add events to events list
                     angular.forEach(response, function(event){
-                        var date = event['startdate'].split('-');
+                        var date = moment(event['startdate']).toDate();
+                        var start_datetime = moment(event['startdate'] + " " + event['starttime']).toDate();
+                        var end_datetime = moment(event['startdate'] + " " + event['endtime']).toDate();
 
-                        var starttime = event['starttime'].split(':');
-                        var endtime = event['endtime'].split(':');
-                        var start_datetime = new Date(date[0], date[1]-1, date[2], starttime[0], starttime[1]);
-                        var end_datetime = new Date(date[0], date[1]-1, date[2], endtime[0], endtime[1]);
-                        var start_date = new Date(date[0], date[1]-1, date[2]).setHours(0,0,0,0);
-                        event['date'] = start_date;
+                        event['date'] = date;
                         event['start_datetime'] = start_datetime;
                         event['end_datetime'] = end_datetime;
 

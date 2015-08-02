@@ -103,10 +103,22 @@ angular.module('unitime.controllers', [])
         $scope.event = RootData.getEvent();  // Single event object, used for event detail view
         $scope.myCourses = RootData.getMyCourses();
         var today = new Date().setHours(0,0,0,0);
+        var date = null;
         $scope.dateToday = moment(today).toDate();
         $scope.dateTomorrow = moment(today).add(1, 'days').toDate();
         //$scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
+        $scope.checkIfNewDate = function (dateIn) {
+            if (date === null) {
+                date = dateIn;
+                return true;
+            }
+            else if (date.isAfter(dateIn)) {
+                date = dateIn;
+                return true;
+            }
+            return false;
+        };
 
         $scope.eventDetail = function(dataIn){
             RootData.setEvent(dataIn);
@@ -226,7 +238,7 @@ angular.module('unitime.controllers', [])
 
 .controller('PopupCtrl',function($scope, $ionicPopup, RootData, $rootScope, Rate, ngDialog) {
 
-    // Triggered on a button click, or some other target
+    // Triggered on a button click
     $scope.showPopup = function(course) {
         $scope.course = course;
         $scope.rating = 4;

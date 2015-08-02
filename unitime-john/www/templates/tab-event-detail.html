@@ -3,10 +3,10 @@
         <div class="item" align="center">
             <p>{{event.startdate}}</p>
             <p>{{event.starttime}} - {{event.endtime}}</p>
-            <p>Room: {{event.room}}</p>
-            <p>Teacher: {{event.teacher}}</p>
-            <p>Info: {{event.info}}</p>
-            <p>Description: {{event.desc}}</p>
+            <p>Room: {{event.room === "" ? "No room availible" : event.room}}</p>
+            <p>Teacher: {{event.teacher === "" ? "No teacher availible" : event.teacher}}</p>
+            <p>Info: {{event.info === "" ? "No info availible" : event.info}}</p>
+            <p>Description: {{event.desc === "" ? "No description availible" : event.desc}}</p>
         </div>
     </div>
 </ion-view>

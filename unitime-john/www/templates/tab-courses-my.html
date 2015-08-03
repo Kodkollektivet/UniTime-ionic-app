@@ -1,13 +1,13 @@
 <ion-view view-title="My Courses">
     <ion-content>
 
-        <div ng-show="myCourses.length == 0" class="card">
+        <div ng-if="myCourses.length == 0" class="card">
             <div class="item" align="center">
                 You have no courses!
             </div>
         </div>
 
-            <div collection-repeat="course in myCourses">
+            <ion-list ng-show="myCourses.length != 0" collection-repeat="course in myCourses" item-height="475" item-width="100%">
                 <div class="card" align="center" id="myCoursesCard">
                     <div class="item">
                         <h2>{{course.course_code}}</h2>
@@ -33,7 +33,7 @@
                         Remove course
                     </button>
                 </div>
-            </div>
+            </ion-list>
 
     </ion-content>
 </ion-view>

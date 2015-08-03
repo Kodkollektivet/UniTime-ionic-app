@@ -51,3 +51,19 @@
     width: 100%;
     height: 3px;
 }
+
+#eventNewDate {
+    background-color: #A0CAD8;
+    height: 3em;
+}
+
+#eventHeaderMain {
+    position: absolute;
+    top: 13%;
+    width: 100%;
+}
+
+#eventWeek {
+    text-align: right;
+    padding-right: 2em;
+}

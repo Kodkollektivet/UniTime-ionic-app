@@ -136,7 +136,7 @@ angular.module('unitime.controllers', [])
         });
 
         $scope.getEventHeight = function(event) {
-            return event['newDate'] ? 214 : 140;
+            return event['newDate'] ? 188 : 140;
         };
         $scope.getEventWidth = function(event) {
             return '100%';

@@ -40,12 +40,12 @@
 
         <ion-list id="eventList" ng-hide="myCourses.length == 0" collection-repeat="event in events | orderBy: 'start_datetime'"
                   collection-item-height="getEventHeight(event)" collection-item-width="getEventWidth(event)">
-            <ion-item ng-if="event.newDate" style="background-color: #A0CAD8;">
-                <div class="row">
+            <ion-item id="eventNewDate" ng-if="event.newDate">
+                <div id="eventHeaderMain" class="row">
                     <div class="col col-50">
                         {{formatHeader(event.date)}}
                     </div>
-                    <div class="col col-50" style="text-align: right;">
+                    <div id="eventWeek" class="col col-50">
                         {{formatHeaderWeek(event.date)}}
                     </div>
                 </div>

@@ -13,7 +13,8 @@ angular.module('unitime', [
     'jett.ionic.filter.bar',
     'ionic.rating',
     'ui.calendar',
-    'ngDialog'
+    'ngDialog',
+    'ngPDFViewer'
 ])
 
 .run(function($ionicPlatform) {
@@ -31,6 +32,12 @@ angular.module('unitime', [
     }
   });
 })
+
+    .filter('trusted', ['$sce', function ($sce) {
+        return function(url) {
+            return $sce.trustAsResourceUrl(url);
+        };
+    }])
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $ionicFilterBarConfigProvider, $resourceProvider) {
 
@@ -104,6 +111,16 @@ angular.module('unitime', [
               'tab-courses': {
                   templateUrl: 'templates/tab-course-detail.html',
                   controller: 'DetailCourseController'
+              }
+          }
+      })
+
+      .state('tab.course-pdf', {
+          url: '/courses-pdf-view',
+          views: {
+              'tab-courses': {
+                  templateUrl: 'templates/pdf-view.html',
+                  controller: 'PDFController'
               }
           }
       })

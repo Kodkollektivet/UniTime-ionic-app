@@ -1,4 +1,10 @@
 {
   "name": "unitime-john",
-  "app_id": "236d3ca3"
+  "app_id": "236d3ca3",
+  "proxies": [
+    {
+      "path": "/pdf",
+      "proxyUrl": "http://api.kursinfo.lnu.se/GenerateDocument.ashx"
+    }
+  ]
 }

@@ -1,0 +1,11 @@
+<ion-view view-title="PDF Viewer">
+    <ion-content>
+    <button ng-click="prevPage()">&lt;</button>
+    <button ng-click="nextPage()">&gt;</button>
+    <br>
+    <span>{{currentPage}}/{{totalPages}}</span>
+    <br>
+    <p>{{url}}</p>
+    <pdfviewer ng-src="{{url | trusted}}" on-page-load='pageLoaded(page,total)' id="viewer"></pdfviewer>
+    </ion-content>
+</ion-view>

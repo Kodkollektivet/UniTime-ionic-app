@@ -8,6 +8,17 @@ angular.module('unitime.factorys', ['ngResource'])
         });
     })
 
+
+    .factory('PdfGetter', function($resource) {
+        return $resource('/pdf', {}, {
+            'save': {method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+                    Cookie: 'ASP.NET_SessionId=rnaemu45vqepqivje1rrelvc; _ga=GA1.2.445490033.1433970875; __utma=76804746.445490033.1433970875.1438626652.1438626652.1; __utmc=76804746; __utmz=76804746.1438626652.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'}
+            }
+        });
+    })
+
+
     // Factory for getting events
     .factory('Event', function($resource){
         return $resource('http://unitime.se/api/event/:course', {}, {
@@ -39,11 +50,11 @@ angular.module('unitime.factorys', ['ngResource'])
         var course;  // Single course object
         var events = [];  // Events list
         var event;  // Single event object
+        var syllabus;
 
         var checkDate = null;
 
         var checkIfNewDate = function (event) {
-            checkDate = null;
             if (checkDate == null || checkDate.getTime() < event['date'].getTime()) {
                 checkDate = event['date'];
                 return true;
@@ -51,7 +62,14 @@ angular.module('unitime.factorys', ['ngResource'])
             return false;
         };
 
+        var sortDates = function (date1, date2) {
+            if(date1['date'].getTime() < date2['date'].getTime()) return -1;
+            if(date1['date'].getTime() > date2['date'].getTime()) return 1;
+            return 0;
+        };
+
         var getEventsRequest = function () {
+            checkDate = null;
             events.splice(0, events.length);
             angular.forEach(myCourses, function(course){
 
@@ -68,7 +86,7 @@ angular.module('unitime.factorys', ['ngResource'])
                         event['start_datetime'] = start_datetime;
                         event['end_datetime'] = end_datetime;
 
-                        event['newDate'] = !!checkIfNewDate(event);
+                        event['newDate'] = checkIfNewDate(event);
 
                         // Add event to list
                         events.push(event);
@@ -158,6 +176,12 @@ angular.module('unitime.factorys', ['ngResource'])
             getEventsRefresh: function () {
                 getEventsRequest();
                 return events;
+            },
+            setSyllabus: function (url) {
+                syllabus = url;
+            },
+            getSyllabus: function () {
+                return syllabus;
             }
         };
     })
@@ -175,7 +199,7 @@ angular.module('unitime.factorys', ['ngResource'])
                 $window.localStorage[key] = JSON.stringify(value);
             },
             getObject: function(key) {
-                return JSON.parse($window.localStorage[key] || '{}');
+                return JSON.parse($window.localStorage[key] || '[]');
             }
         }
     }]);

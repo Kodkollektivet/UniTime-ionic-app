@@ -71,7 +71,7 @@ angular.module('unitime.controllers', [])
         };
     })
 
-    .controller('MyCoursesController', function($scope, $rootScope, $state, RootData) {
+    .controller('MyCoursesController', function($scope, $rootScope, $state, RootData, $http, PdfGetter) {
         $scope.myCourses = RootData.getMyCourses();
 
         $scope.removeFromMyCourses = function(courseIn){
@@ -86,7 +86,21 @@ angular.module('unitime.controllers', [])
         };
 
         $scope.openSyllabusEN = function(courseIn){
-            window.open(courseIn.syllabus_en, '_system', 'location=yes');
+            var data = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'en'};
+            $http.post('/pdf', '', {responseType:'arraybuffer', 'Content-Type':'application/x-www-form-urlencoded '})
+                .success(function (response) {
+                    console.log(response);
+                    var file = new Blob([response], { type: 'application/pdf' });
+                    var fileURL = URL.createObjectURL(file);
+                    RootData.setSyllabus(fileURL);
+                    console.log(PdfGetter.save(data));
+                    console.log(RootData.getSyllabus());
+                });
+
+            //var data = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'en'};
+            //RootData.setSyllabus(PdfGetter.save(data));
+            $state.go('tab.course-pdf');
+            //window.open(courseIn.syllabus_en, '_system', 'location=yes');
         };
 
         $scope.openSyllabusSV = function(courseIn){
@@ -96,6 +110,8 @@ angular.module('unitime.controllers', [])
         $scope.$on('myCoursesUpdated', function(event, args) {
             $scope.myCourses = RootData.getMyCourses();
         });
+
+
     })
 
     .controller('EventsController', function($scope, $state, RootData, $ionicPopup, ngDialog) {
@@ -271,4 +287,25 @@ angular.module('unitime.controllers', [])
                 }
         };
     };
-});
+})
+    
+.controller('PDFController', [ '$scope', 'PDFViewerService', 'RootData', 'PdfGetter', function($scope, pdf, RootData) {
+        $scope.viewer = pdf.Instance("viewer");
+
+        $scope.url = RootData.getSyllabus();
+
+        //$scope.pdfDoc = RootData.getSyllabus();
+
+        $scope.nextPage = function() {
+            $scope.viewer.nextPage();
+        };
+
+        $scope.prevPage = function() {
+            $scope.viewer.prevPage();
+        };
+
+        $scope.pageLoaded = function(curPage, totalPages) {
+            $scope.currentPage = curPage;
+            $scope.totalPages = totalPages;
+        };
+    }]);

@@ -12,9 +12,21 @@ angular.module('unitime.factorys', ['ngResource'])
     .factory('PdfGetter', function($resource) {
         return $resource('/pdf', {}, {
             'save': {method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded',
-                    Cookie: 'ASP.NET_SessionId=rnaemu45vqepqivje1rrelvc; _ga=GA1.2.445490033.1433970875; __utma=76804746.445490033.1433970875.1438626652.1438626652.1; __utmc=76804746; __utmz=76804746.1438626652.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)'}
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+                async: false,
+                transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                responseType: 'arraybuffer',
+                transformResponse: function(data, headersGetter) {
+                    // Stores the ArrayBuffer object in a property called "data"
+                    return { data : data };
+                }
             }
+
         });
     })
 
@@ -50,7 +62,7 @@ angular.module('unitime.factorys', ['ngResource'])
         var course;  // Single course object
         var events = [];  // Events list
         var event;  // Single event object
-        var syllabus;
+        var syllabus = null;
 
         var checkDate = null;
 

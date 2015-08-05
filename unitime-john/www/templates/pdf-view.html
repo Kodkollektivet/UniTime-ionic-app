@@ -5,7 +5,8 @@
     <br>
     <span>{{currentPage}}/{{totalPages}}</span>
     <br>
-    <p>{{url}}</p>
+    <div align="center">
     <pdfviewer ng-src="{{url | trusted}}" on-page-load='pageLoaded(page,total)' id="viewer"></pdfviewer>
+    </div>
     </ion-content>
 </ion-view>

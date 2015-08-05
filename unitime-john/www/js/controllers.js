@@ -86,25 +86,30 @@ angular.module('unitime.controllers', [])
         };
 
         $scope.openSyllabusEN = function(courseIn){
-            var data = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'en'};
-            $http.post('/pdf', '', {responseType:'arraybuffer', 'Content-Type':'application/x-www-form-urlencoded '})
-                .success(function (response) {
-                    console.log(response);
-                    var file = new Blob([response], { type: 'application/pdf' });
-                    var fileURL = URL.createObjectURL(file);
-                    RootData.setSyllabus(fileURL);
-                    console.log(PdfGetter.save(data));
-                    console.log(RootData.getSyllabus());
-                });
 
-            //var data = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'en'};
-            //RootData.setSyllabus(PdfGetter.save(data));
+            var info = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'en'};
+
+            PdfGetter.save(info)
+            .$promise.then(function (response) {
+                var file = new Blob([response.data], {type: 'application/pdf'});
+                var fileUrl = URL.createObjectURL(file);
+                RootData.setSyllabus(fileUrl);
+                $rootScope.$broadcast('pdfUpdated');
+            });
             $state.go('tab.course-pdf');
-            //window.open(courseIn.syllabus_en, '_system', 'location=yes');
         };
 
         $scope.openSyllabusSV = function(courseIn){
-            window.open(courseIn.syllabus_sv, '_system', 'location=yes');
+            var info = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'sv'};
+
+            PdfGetter.save(info)
+                .$promise.then(function (response) {
+                    var file = new Blob([response.data], {type: 'application/pdf'});
+                    var fileUrl = URL.createObjectURL(file);
+                    RootData.setSyllabus(fileUrl);
+                    $rootScope.$broadcast('pdfUpdated');
+                });
+            $state.go('tab.course-pdf');
         };
 
         $scope.$on('myCoursesUpdated', function(event, args) {
@@ -289,12 +294,10 @@ angular.module('unitime.controllers', [])
     };
 })
     
-.controller('PDFController', [ '$scope', 'PDFViewerService', 'RootData', 'PdfGetter', function($scope, pdf, RootData) {
+.controller('PDFController', [ '$scope', 'PDFViewerService', 'RootData', function($scope, pdf, RootData) {
         $scope.viewer = pdf.Instance("viewer");
 
         $scope.url = RootData.getSyllabus();
-
-        //$scope.pdfDoc = RootData.getSyllabus();
 
         $scope.nextPage = function() {
             $scope.viewer.nextPage();
@@ -308,4 +311,8 @@ angular.module('unitime.controllers', [])
             $scope.currentPage = curPage;
             $scope.totalPages = totalPages;
         };
+
+        $scope.$on('pdfUpdated', function(event, args) {
+            $scope.url = RootData.getSyllabus();
+        });
     }]);

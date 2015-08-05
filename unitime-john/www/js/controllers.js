@@ -215,14 +215,17 @@ angular.module('unitime.controllers', [])
     .controller('CalendarCtrl', function($scope, $state, $compile, RootData, uiCalendarConfig, ngDialog) {
         $scope.events = [];
 
+        function get_calendar_height() {
+            return $('#heightDiv').height();
+        }
+
         var alertOnEventClick = function( event, jsEvent, view){
             showPopup(event);
         };
         /* config object */
         $scope.uiConfig = {
             calendar:{
-                height: 450,
-                editable: true,
+                height: get_calendar_height(),
                 header:{
                     left: 'month agendaWeek agendaDay',
                     center: 'title',

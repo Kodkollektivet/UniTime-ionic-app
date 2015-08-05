@@ -24,18 +24,6 @@ angular.module('unitime.controllers', [])
             });
         };
 
-        $scope.refreshItems = function () {
-            if (filterBarInstance) {
-                filterBarInstance();
-                filterBarInstance = null;
-            }
-
-            $timeout(function () {
-                getItems();
-                $scope.$broadcast('scroll.refreshComplete');
-            }, 1000);
-        };
-
         $scope.isThisCourseInMyCourses = function(courseIn){
             return RootData.courseInMyCourses(courseIn);
         };
@@ -162,8 +150,8 @@ angular.module('unitime.controllers', [])
             ngDialog.open({
                 template:
                 '<div align="center">' +
-                '<h3>{{ event.name_en }}</h3>'+
-                '<h4>{{ event.name_sv }}</h4>'+
+                '<h4>{{ event.name_en }}</h4>'+
+                '<h5>{{ event.name_sv }}</h5>'+
                 '<p><b>{{ event.startdate }}</b></p>'+
                 '<p><b>{{ event.starttime }} - {{ event.endtime }}</b></p>'+
                 '<p>Room: {{ event.room === "" ? "No room availible" : event.room }}</p>'+
@@ -179,8 +167,8 @@ angular.module('unitime.controllers', [])
         // Show today alert popup
         $scope.showTodayPopup = function() {
             ngDialog.open({
-                template: '<div align="center"><h3>Today</h3>' +
-                '<p align="center">This icon means the event is happening today.</p>' +
+                template: '<div align="center"><h4>Today</h4>' +
+                '<p>This icon means the event is happening today.</p>' +
                 '<button class="button button-block button-dark" ng-click="closeThisDialog()">Ok</button></div>',
                 className: 'ngdialog-theme-default',
                 plain: true
@@ -191,8 +179,8 @@ angular.module('unitime.controllers', [])
         // Show today alert popup
         $scope.showTomorrowPopup = function() {
             ngDialog.open({
-                template: '<div align="center"><h3>Tomorrow</h3>' +
-                '<p align="center">This icon means the event is happening tomorrow.</p>' +
+                template: '<div align="center"><h4>Tomorrow</h4>' +
+                '<p>This icon means the event is happening tomorrow.</p>' +
                 '<button class="button button-block button-dark" ng-click="closeThisDialog()">Ok</button></div>',
                 className: 'ngdialog-theme-default',
                 plain: true
@@ -203,7 +191,7 @@ angular.module('unitime.controllers', [])
         // Show important events alert popup
         $scope.showImportantPopup = function() {
             ngDialog.open({
-                template: '<div align="center"><h3>Important</h3>' +
+                template: '<div align="center"><h4>Important</h4>' +
                 '<p align="center">This icon means the event is important, for instance a presentation or an exam.</p>' +
                 '<button class="button button-block button-dark" ng-click="closeThisDialog()">Ok</button></div>',
                 className: 'ngdialog-theme-default',

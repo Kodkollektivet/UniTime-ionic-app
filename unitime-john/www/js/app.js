@@ -135,16 +135,6 @@ angular.module('unitime', [
           }
       })
 
-      .state('tab.event-detail', {
-          url: '/event-detail',
-          views: {
-              'tab-events': {
-                  templateUrl: 'templates/tab-event-detail.html',
-                  controller: 'EventsController'
-              }
-          }
-      })
-
       .state('tab.calendar', {
           url: '/calendar',
           views: {

@@ -1,6 +1,6 @@
 angular.module('unitime.controllers', [])
 
-    .controller('CourseController', function($scope, $state, Course, RootData, item) {
+    .controller('CourseController', function($scope, $state, $ionicLoading, Course, RootData, item) {
         $scope.allCourses = item;  // All courses
         $scope.course;  // Specific course object
 

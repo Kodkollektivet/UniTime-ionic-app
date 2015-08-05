@@ -56,9 +56,9 @@
                     <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
                     <i ng-show="event.date.getTime() == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
                 </div>
-                <div align="center" ng-click="eventDetail(event)">
+                <div align="center" ng-click="showDetailedInfoPopup(event)">
 
-                    <p><b>{{ event.startdate }}</b></p>
+                    <!--<p><b>{{ event.startdate }}</b></p>-->
                     <p>{{ event.name_en }}</p>
                     <p>{{ event.starttime }}-{{ event.endtime }}</p>
                     <p>{{ event.room === "" ? "No room availible" : event.room }}</p>

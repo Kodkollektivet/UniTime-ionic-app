@@ -9,7 +9,6 @@ angular.module('unitime.services', ['ngResource'])
             getItem: function(){
 
                 if (RootData.getAllCourses().length == 0){
-
                     response = Course.query().$promise;
                     RootData.setAllCourses(response);
                     return response;

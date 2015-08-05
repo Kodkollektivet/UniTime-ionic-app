@@ -128,12 +128,6 @@ angular.module('unitime.controllers', [])
         $scope.dateTomorrow = moment(today).add(1, 'days').toDate();
         //$scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
-
-        $scope.eventDetail = function(dataIn){
-            RootData.setEvent(dataIn);
-            $state.go('tab.event-detail');
-        };
-
         $scope.formatHeader = function (date) {
             return moment(date).format("D[/]M[ - ]dddd");
         };
@@ -157,10 +151,29 @@ angular.module('unitime.controllers', [])
         });
 
         $scope.getEventHeight = function(event) {
-            return event['newDate'] ? 188 : 140;
+            return event['newDate'] ? 166 : 118;
         };
         $scope.getEventWidth = function(event) {
             return '100%';
+        };
+
+        $scope.showDetailedInfoPopup = function(event){
+            $scope.event = event;
+            ngDialog.open({
+                template:
+                '<div align="center">' +
+                '<h3>{{ event.name_en }}</h3>'+
+                '<h4>{{ event.name_sv }}</h4>'+
+                '<p><b>{{ event.startdate }}</b></p>'+
+                '<p><b>{{ event.starttime }} - {{ event.endtime }}</b></p>'+
+                '<p>Room: {{ event.room === "" ? "No room availible" : event.room }}</p>'+
+                '<p>Teacher: {{ event.teacher === "" ? "No teacher availible" : event.teacher }}</p>'+
+                '<p>Info: {{ event.info === "" ? "No info availible" : event.info }}</p>'+
+                '<p>Desc: {{ event.desc === "" ? "No description availible" : event.desc }}</p>',
+                className: 'ngdialog-theme-default',
+                plain: true,
+                scope: $scope
+            });
         };
 
         // Show today alert popup

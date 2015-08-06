@@ -6,5 +6,12 @@
       "path": "/pdf",
       "proxyUrl": "http://api.kursinfo.lnu.se/GenerateDocument.ashx"
     }
+  ],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "14.42.334.0"
+    }
   ]
 }

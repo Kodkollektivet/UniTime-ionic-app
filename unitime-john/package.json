@@ -19,7 +19,11 @@
     "cordova-plugin-console",
     "cordova-plugin-splashscreen",
     "cordova-plugin-inappbrowser",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-whitelist.git",
+      "id": "cordova-plugin-whitelist"
+    }
   ],
   "cordovaPlatforms": [
     "android"

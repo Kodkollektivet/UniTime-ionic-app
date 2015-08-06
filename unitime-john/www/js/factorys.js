@@ -10,17 +10,17 @@ angular.module('unitime.factorys', ['ngResource'])
 
 
     .factory('PdfGetter', function($resource) {
-        return $resource('/pdf', {}, {
+        return $resource('http://unitime.se/api/pdf/', {}, {
             'save': {method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
                 async: false,
+                responseType: 'arraybuffer',
                 transformRequest: function(obj) {
                     var str = [];
                     for(var p in obj)
                         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
                     return str.join("&");
                 },
-                responseType: 'arraybuffer',
                 transformResponse: function(data, headersGetter) {
                     // Stores the ArrayBuffer object in a property called "data"
                     return { data : data };

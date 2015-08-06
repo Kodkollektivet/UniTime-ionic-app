@@ -92,6 +92,8 @@ angular.module('unitime.controllers', [])
 
             PdfGetter.save(info)
                 .$promise.then(function (response) {
+                    console.log('this is the response');
+                    console.log(response.data);
                     var file = new Blob([response.data], {type: 'application/pdf'});
                     var fileUrl = URL.createObjectURL(file);
                     RootData.setSyllabus(fileUrl);

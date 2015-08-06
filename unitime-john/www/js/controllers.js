@@ -215,6 +215,7 @@ angular.module('unitime.controllers', [])
         /* config object */
         $scope.uiConfig = {
             calendar:{
+                allDaySlot: false,  // All day slot removed
                 height: get_calendar_height(),
                 header:{
                     left: 'month agendaWeek agendaDay',

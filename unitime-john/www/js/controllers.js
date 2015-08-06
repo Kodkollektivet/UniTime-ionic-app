@@ -75,10 +75,12 @@ angular.module('unitime.controllers', [])
 
         $scope.openSyllabusEN = function(courseIn){
 
+            console.log(courseIn.syllabus_en);
             var info = {'templatetype' : 'coursesyllabus', 'code' : courseIn.course_code, 'documenttype' : 'pdf', 'lang' : 'en'};
 
             PdfGetter.save(info)
             .$promise.then(function (response) {
+                    console.log(response.data);
                 var file = new Blob([response.data], {type: 'application/pdf'});
                 var fileUrl = URL.createObjectURL(file);
                 RootData.setSyllabus(fileUrl);

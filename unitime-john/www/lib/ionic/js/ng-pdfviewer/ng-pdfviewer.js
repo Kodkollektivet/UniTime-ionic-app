@@ -13,7 +13,7 @@ directive('pdfviewer', [ '$parse', function($parse) {
 
 	return {
 		restrict: "E",
-		template: '<canvas></canvas>',
+		template: '<canvas style="width: 100%"></canvas>',
 		scope: {
 			onPageLoad: '&',
 			loadProgress: '&',

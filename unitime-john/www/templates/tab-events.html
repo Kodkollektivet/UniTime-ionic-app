@@ -53,23 +53,18 @@
             </ion-item>
             <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap">
 
-                <i ng-show="event.date.getTime() == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
+                <i ng-show="event.date.getTime() == dateToday.getTime()"  style="width: inherit;" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
                 <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
-                <i ng-show="event.date.getTime() == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
+                <i ng-show="event.date.getTime() == dateTomorrow.getTime()" style="width: inherit;" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
 
-
-                    <div class="item" style="border-width: 0px;" ng-click="showDetailedInfoPopup(event)" align="center">
-                        <div style="margin-top: -1em">
+                <div  align="center" ng-click="showDetailedInfoPopup(event)">
                             <!--<p><b>{{ event.startdate }}</b></p>-->
                             <p>{{ event.name_en }}</p>
                             <p>{{ event.starttime }} - {{ event.endtime }}</p>
                             <p>{{ event.room === "" ? "No room availible" : event.room }}</p>
                             <p>{{ event.info === "" ? "No info availible" : event.info }}</p>
-                        </div>
-                    </div>
-
-
-                <i ng-hide="!checkIfImportant(event)" ng-click="showImportantPopup()" class="icon ion-alert"></i>
+                </div>
+                <i ng-hide="!checkIfImportant(event)" style="width: inherit;" ng-click="showImportantPopup()" class="icon ion-alert"></i>
 
             </ion-item>
         </ion-list>

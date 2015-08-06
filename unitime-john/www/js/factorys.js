@@ -10,7 +10,7 @@ angular.module('unitime.factorys', ['ngResource'])
 
 
     .factory('PdfGetter', function($resource) {
-        return $resource('/pdf', {}, {
+        return $resource('http://unitime.se/api/pdf/', {}, {
             'save': {method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
                 async: false,

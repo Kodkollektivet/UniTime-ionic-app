@@ -116,6 +116,7 @@ angular.module('unitime.controllers', [])
         var today = new Date().setHours(0,0,0,0);
         $scope.dateToday = moment(today).toDate();
         $scope.dateTomorrow = moment(today).add(1, 'days').toDate();
+        $scope.eventsIsNotLoading = true;
         //$scope.dateTomorrow = new Date(date_today_1.getFullYear(), date_today_1.getMonth(), date_today_1.getDate()+1).setHours(0,0,0,0);
 
         $scope.formatHeader = function (date) {
@@ -127,9 +128,11 @@ angular.module('unitime.controllers', [])
         };
 
         $scope.doRefresh = function() {
+            $scope.eventsIsNotLoading = false;
             $scope.events = RootData.getEventsRefresh();
             $scope.$broadcast('scroll.refreshComplete');
             $scope.$apply();
+            $scope.eventsIsNotLoading = true;
         };
 
         $scope.checkIfImportant = function (event) {

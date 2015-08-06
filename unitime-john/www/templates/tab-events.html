@@ -4,7 +4,7 @@
         <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
         </ion-refresher>
 
-        <div class="card" ng-if="myCourses.length == 0 && events.length == 0">
+        <div class="card" ng-if="myCourses.length == 0 && events.length == 0 && eventsIsNotLoading">
             <div class="item item-text-wrap" align="center">
                 <h1>Welcome to UniTime!</h1>
                 <br>
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="card" ng-if="myCourses.length > 0 && events.length == 0">
+        <div class="card" ng-if="myCourses.length > 0 && events.length == 0 && eventsIsNotLoading">
             <div class="item item-text-wrap" align="center">
                 <h1>No schedule!</h1>
                 <br>

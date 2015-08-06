@@ -50,22 +50,21 @@
                     </div>
                 </div>
             </ion-item>
-            <ion-item class="item-icon-left" type="item-text-wrap">
-                <div>
-                    <i ng-show="event.date.getTime() == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
-                    <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
-                    <i ng-show="event.date.getTime() == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
-                </div>
-                <div align="center" ng-click="showDetailedInfoPopup(event)">
+            <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap">
 
+                <i ng-show="event.date.getTime() == dateToday.getTime()"  style="width: inherit;" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
+                <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
+                <i ng-show="event.date.getTime() == dateTomorrow.getTime()" style="width: inherit;" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
+
+                <div  align="center" ng-click="showDetailedInfoPopup(event)">
                     <!--<p><b>{{ event.startdate }}</b></p>-->
                     <p>{{ event.name_en }}</p>
-                    <p>{{ event.starttime }}-{{ event.endtime }}</p>
+                    <p>{{ event.starttime }} - {{ event.endtime }}</p>
                     <p>{{ event.room === "" ? "No room availible" : event.room }}</p>
                     <p>{{ event.info === "" ? "No info availible" : event.info }}</p>
                 </div>
+                <i ng-hide="!checkIfImportant(event)" style="width: inherit;" ng-click="showImportantPopup()" class="icon ion-alert"></i>
 
-                <span ng-hide="!checkIfImportant(event)" style="top: 42% !important;" ng-click="showImportantPopup()" class="badge badge-assertive">!</span>
             </ion-item>
         </ion-list>
     </ion-content>

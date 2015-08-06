@@ -5,40 +5,47 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="Course Info">
-    <div class="verticalCenter card">
+    <ion-content>
 
-        <div align="center">
-            <div class="item" align="center">
-                <h2>{{course.course_code}}</h2>
-                <p>{{course.name_en}}</p>
-                <p>{{course.name_sv}}</p>
-                <p>{{course.course_points}}</p>
-                <p>{{course.course_speed}}</p>
-                <p>{{course.semester}} - {{course.year}}</p>
-                <p>{{course.course_location}}</p>
-                <p>{{course.course_language}}</p>
+
+            <div align="center">
+                <div>
+                    <h4 style="margin-top: 1em">{{course.course_code}}</h4>
+                    <h5>{{course.name_en}}</h5>
+                    <h5>{{course.name_sv}}</h5>
+                    <p>{{course.course_points}}</p>
+                    <p>{{course.course_speed}}</p>
+                    <p>{{course.semester}} - {{course.year}}</p>
+                    <p>{{course.course_location}}</p>
+                    <p>{{course.course_language}}</p>
+                </div>
+                <a ng-if="course.url.length > 5" class="item" ng-click="openUrl()">
+                    Link to course.
+                </a>
+                <a class="item" ng-click="openSyllabusEN()">
+                    Syllabus English.
+                </a>
+                <a class="item" ng-click="openSyllabusSV()">
+                    Syllabus Swedish.
+                </a>
+
+
+                <a ng-cloak ng-hide="alreadyAdded == true" class="item ng-cloak" ng-click="addCourseToSelectedCourses()">
+                    <i class="icon ion-plus-round"></i>
+                    <b>
+                        Add course
+                    </b>
+
+                </a>
+
+                <a ng-cloak ng-hide="alreadyAdded == false" class="item ng-cloak">
+                    <i class="icon ion-checkmark-round"></i>
+                    <b>
+                        Course added!
+                    </b>
+                </a>
             </div>
-            <a ng-if="course.url.length > 5" class="item" ng-click="openUrl()">
-                Link to course.
-            </a>
-            <a class="item" ng-click="openSyllabusEN()">
-                Syllabus English.
-            </a>
-            <a class="item" ng-click="openSyllabusSV()">
-                Syllabus Swedish.
-            </a>
 
 
-            <button ng-cloak ng-hide="alreadyAdded == true" class="button button-dark button-block ng-cloak" ng-click="addCourseToSelectedCourses()">
-                <i class="icon ion-plus-round placeholder-icon"></i>
-                Add course
-            </button>
-
-            <button ng-cloak ng-hide="alreadyAdded == false" class="button button-dark button-clear button-block ng-cloak">
-                <i class="icon ion-plus-round placeholder-icon"></i>
-                Course added!
-            </button>
-        </div>
-
-    </div>
+    </ion-content>
 </ion-view>

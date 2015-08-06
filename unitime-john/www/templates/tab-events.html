@@ -4,7 +4,7 @@
         <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
         </ion-refresher>
 
-        <div class="card" ng-if="myCourses.length == 0 && events.length == 0">
+        <div class="card" ng-if="myCourses.length == 0 && events.length == 0 && isNotRefreashing === true">
             <div class="item item-text-wrap" align="center">
                 <h1>Welcome to UniTime!</h1>
                 <br>
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="card" ng-if="myCourses.length > 0 && events.length == 0">
+        <div class="card" ng-if="myCourses.length > 0 && events.length == 0 && isNotRefreashing === true">
             <div class="item item-text-wrap" align="center">
                 <h1>No schedule!</h1>
                 <br>
@@ -38,11 +38,12 @@
             </div>
         </div>
 
-        <ion-list id="eventList" ng-hide="myCourses.length == 0" collection-repeat="event in events | orderBy: 'start_datetime'"
+        <ion-list id="eventList"
+                  ng-hide="myCourses.length == 0" collection-repeat="event in events | orderBy: 'start_datetime'"
                   collection-item-height="getEventHeight(event)" collection-item-width="getEventWidth(event)">
             <ion-item id="eventNewDate" ng-if="event.newDate">
                 <div id="eventHeaderMain" class="row">
-                    <div class="col col-50">
+                    <div id="eventDateAndWeekday" class="col col-50">
                         {{formatHeader(event.date)}}
                     </div>
                     <div id="eventWeek" class="col col-50">
@@ -50,22 +51,26 @@
                     </div>
                 </div>
             </ion-item>
-            <ion-item class="item-icon-left" type="item-text-wrap">
-                <div>
-                    <i ng-show="event.date.getTime() == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
-                    <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
-                    <i ng-show="event.date.getTime() == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
-                </div>
-                <div align="center" ng-click="showDetailedInfoPopup(event)">
+            <ion-item class="item item-icon-left item-icon-right" type="item-text-wrap">
 
-                    <!--<p><b>{{ event.startdate }}</b></p>-->
-                    <p>{{ event.name_en }}</p>
-                    <p>{{ event.starttime }}-{{ event.endtime }}</p>
-                    <p>{{ event.room === "" ? "No room availible" : event.room }}</p>
-                    <p>{{ event.info === "" ? "No info availible" : event.info }}</p>
-                </div>
+                <i ng-show="event.date.getTime() == dateToday.getTime()" class="icon ion-ios-clock" ng-click="showTodayPopup()"></i>
+                <!--<i ng-show="event.date == dateToday" class="icon ion-alert-circled" ng-click="showTodayPopup()"></i>-->
+                <i ng-show="event.date.getTime() == dateTomorrow.getTime()" class="icon ion-ios-clock-outline" ng-click="showTomorrowPopup()"></i>
 
-                <span ng-hide="!checkIfImportant(event)" style="top: 42% !important;" ng-click="showImportantPopup()" class="badge badge-assertive">!</span>
+
+                    <div class="item" style="border-width: 0px;" ng-click="showDetailedInfoPopup(event)" align="center">
+                        <div style="margin-top: -1em">
+                            <!--<p><b>{{ event.startdate }}</b></p>-->
+                            <p>{{ event.name_en }}</p>
+                            <p>{{ event.starttime }} - {{ event.endtime }}</p>
+                            <p>{{ event.room === "" ? "No room availible" : event.room }}</p>
+                            <p>{{ event.info === "" ? "No info availible" : event.info }}</p>
+                        </div>
+                    </div>
+
+
+                <i ng-hide="!checkIfImportant(event)" ng-click="showImportantPopup()" class="icon ion-alert"></i>
+
             </ion-item>
         </ion-list>
     </ion-content>
